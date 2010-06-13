@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
 public class Stress extends Activity {
+	private static final String PLAYER_1 = "Player 1";
+	private static final String PLAYER_2 = "Player 2";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,13 +24,34 @@ public class Stress extends Activity {
 		}
 	}
 
+	int switcherId = 0;
 	private OnClickListener clickListener = new OnClickListener() {
-
 		public void onClick(View v) {
 			Button button = (Button) v;
 			String player = getPlayerByButton(button);
-			String message = player + " pressed button " + button.getText();
-			Toast.makeText(Stress.this, message, Toast.LENGTH_SHORT).show();
+			switcherId = (switcherId + 1) % 2;
+			Button stackToUpdate = null;
+			Button stackToHide = null;
+			if (PLAYER_1.equals(player)) {
+				if (switcherId == 0) {
+					stackToUpdate = (Button) findViewById(R.id.ButtonStack1);
+					stackToHide = (Button) findViewById(R.id.ButtonStack1UpsideDown);
+				} else {
+					stackToUpdate = (Button) findViewById(R.id.ButtonStack2);
+					stackToHide = (Button) findViewById(R.id.ButtonStack2UpsideDown);
+				}
+			} else if (PLAYER_2.equals(player)) {
+				if (switcherId == 0) {
+					stackToUpdate = (Button) findViewById(R.id.ButtonStack1UpsideDown);
+					stackToHide = (Button) findViewById(R.id.ButtonStack1);
+				} else {
+					stackToUpdate = (Button) findViewById(R.id.ButtonStack2UpsideDown);
+					stackToHide = (Button) findViewById(R.id.ButtonStack2);
+				}
+			}
+			stackToUpdate.setVisibility(View.VISIBLE);
+			stackToUpdate.setText(button.getText());
+			stackToHide.setVisibility(View.GONE);
 		}
 
 		private String getPlayerByButton(Button button) {
@@ -38,13 +61,13 @@ public class Stress extends Activity {
 			case R.id.Button02P1:
 			case R.id.Button03P1:
 			case R.id.Button04P1:
-				player = "Player 1";
+				player = PLAYER_1;
 				break;
 			case R.id.Button01P2:
 			case R.id.Button02P2:
 			case R.id.Button03P2:
 			case R.id.Button04P2:
-				player = "Player 2";
+				player = PLAYER_2;
 				break;
 			}
 			return player;
