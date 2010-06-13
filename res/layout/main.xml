@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:stretchColumns="1">
 
+<TableRow android:id="@+id/TableRowP1" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_width="fill_parent">
+<Button android:text="5" android:id="@+id/Button01P1" android:layout_width="wrap_content" android:layout_weight="1" android:layout_height="fill_parent"/>
+<Button android:text="6" android:id="@+id/Button02P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
+<Button android:text="7" android:id="@+id/Button03P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
+<Button android:text="8" android:id="@+id/Button04P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
+</TableRow>
 
+<TableRow android:id="@+id/TableRowCenter" android:layout_height="wrap_content" android:gravity="center" android:layout_centerInParent="true" android:layout_width="wrap_content">
+<Button android:text="9" android:id="@+id/ButtonStack1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip"/>
+<com.droidwave.stress.view.UpsideDownButton android:text="9" android:id="@+id/ButtonStack1UpsideDown" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip" android:visibility="gone"/>
+<Button android:text="10" android:id="@+id/ButtonStack2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip" android:visibility="gone"/>
+<com.droidwave.stress.view.UpsideDownButton android:text="10" android:id="@+id/ButtonStack2UpsideDown" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip"/>
+</TableRow>
 
-
-
-
-<Button android:text="@+id/Button01" android:id="@+id/Button01" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-
-
-<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_toRightOf="@+id/Button01" android:text="@+id/Button02" android:id="@+id/Button02"></Button><Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_toRightOf="@+id/Button02" android:text="@+id/Button03" android:id="@+id/Button03"></Button>
-<Button android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_toRightOf="@+id/Button03" android:text="@+id/Button04" android:id="@+id/Button04" android:layout_alignParentRight="true"></Button>
-
-
-
-
-
+<TableRow android:id="@+id/TableRowP2" android:layout_height="wrap_content" android:layout_width="fill_parent">
+<com.droidwave.stress.view.UpsideDownButton android:text="1" android:id="@+id/Button01P2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
+<com.droidwave.stress.view.UpsideDownButton android:text="2" android:id="@+id/Button02P2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
+<com.droidwave.stress.view.UpsideDownButton android:text="3" android:id="@+id/Button03P2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
+<com.droidwave.stress.view.UpsideDownButton android:text="4" android:id="@+id/Button04P2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"/>
+</TableRow>
 
 
 
