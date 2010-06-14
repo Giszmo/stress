@@ -34,13 +34,13 @@ public class Stress extends Activity {
 					R.id.Button04P2 } };
 
 	private int current_value_1, current_value_2;
-	private boolean multiplayer = true;
+	private GameMode gameMode = GameMode.SINGLEPLAYER;
 	private KILevel kiLevel = KILevel.EASY;
 	private static final Map<KILevel, Long> kiDelay = new HashMap<KILevel, Long>();
 	static {
 		kiDelay.put(KILevel.EASY, 2000l);
 		kiDelay.put(KILevel.MEDIUM, 1500l);
-		kiDelay.put(KILevel.HARD, 1000l);
+		kiDelay.put(KILevel.HARD, 500l);
 	}
 	private Handler mHandler = new Handler();
 	private Runnable mUpdateTimerTask = new Runnable() {
@@ -69,8 +69,14 @@ public class Stress extends Activity {
 	}
 
 	private void doKiStep() {
+		int playerPick;
+		if (gameMode == GameMode.DEMO) {
+			playerPick = (int) (Math.random() * 2);
+		} else {
+			playerPick = 1;
+		}
 		int cardPick = (int) (Math.random() * 4);
-		playCard(1, cardPick);
+		playCard(playerPick, cardPick);
 	}
 
 	private void startKI() {
@@ -127,7 +133,7 @@ public class Stress extends Activity {
 			}
 		}
 		ensurePlayability();
-		if (!multiplayer) {
+		if (gameMode != GameMode.MULTIPLAYER) {
 			startKI();
 		}
 	}
@@ -203,40 +209,42 @@ public class Stress extends Activity {
 		case R.id.new_multiplayer:
 			Toast.makeText(this, "new multiplayer game started!",
 					Toast.LENGTH_SHORT).show();
-			multiplayer = true;
+			gameMode = GameMode.MULTIPLAYER;
 			initGame();
-			return true;
+			break;
 		case R.id.new_singleplayer:
 			Toast.makeText(this, "new singleplayer game started!",
 					Toast.LENGTH_SHORT).show();
-			multiplayer = false;
+			gameMode = GameMode.SINGLEPLAYER;
 			initGame();
-			return true;
+			break;
+		case R.id.new_demo:
+			Toast.makeText(this, "new demo started!", Toast.LENGTH_SHORT)
+					.show();
+			gameMode = GameMode.DEMO;
+			initGame();
+			break;
 		case R.id.easyy:
 			Toast.makeText(this, "ki set to easy", Toast.LENGTH_SHORT).show();
 			kiLevel = KILevel.EASY;
-			return true;
+			break;
 		case R.id.medium:
 			Toast.makeText(this, "ki set to medium", Toast.LENGTH_SHORT).show();
 			kiLevel = KILevel.MEDIUM;
-			return true;
+			break;
 		case R.id.hard:
 			Toast.makeText(this, "ki set to hard", Toast.LENGTH_SHORT).show();
 			kiLevel = KILevel.HARD;
-			return true;
-		default:
-			// Don't toast text when a submenu is clicked
-			if (!item.hasSubMenu()) {
-				Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT)
-						.show();
-				return true;
-			}
 			break;
+		case R.id.submenu:
+			break;
+		default:
+			throw new Error("Unknown menu entry clicked: " + item.getItemId());
 		}
-		return false;
+		return true;
 	}
 
-	private synchronized void playCard(int playerNumber, int cardNumber) {
+	private void playCard(int playerNumber, int cardNumber) {
 		int cardValue = player[playerNumber].getOpenCard(cardNumber);
 		int playedACard = 0;
 		if (Math.abs(current_value_1 - cardValue) % 11 == 1) {
