@@ -30,6 +30,7 @@ public class Stress extends Activity {
 
 	private int current_value_1, current_value_2;
 	private boolean multiplayer = false;
+	private KILevel kiLevel = KILevel.EASY;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -150,6 +151,18 @@ public class Stress extends Activity {
 					Toast.LENGTH_SHORT).show();
 			multiplayer = false;
 			initGame();
+			return true;
+		case R.id.easyy:
+			Toast.makeText(this, "ki set to easy", Toast.LENGTH_SHORT).show();
+			kiLevel = KILevel.EASY;
+			return true;
+		case R.id.medium:
+			Toast.makeText(this, "ki set to medium", Toast.LENGTH_SHORT).show();
+			kiLevel = KILevel.MEDIUM;
+			return true;
+		case R.id.hard:
+			Toast.makeText(this, "ki set to hard", Toast.LENGTH_SHORT).show();
+			kiLevel = KILevel.HARD;
 			return true;
 		default:
 			// Don't toast text when a submenu is clicked
