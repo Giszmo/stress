@@ -3,15 +3,20 @@ package com.droidwave.stress;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.droidwave.stress.view.MirrorButton;
 import com.droidwave.stress.view.StackSizeIndicator;
 
 public class Stress extends Activity {
-	private static final int DECK_SUITE_COUNT = 1;
+	private static final int DECK_SUITE_COUNT = 4;
 	private static final int DECK_SIZE = 13;
 	private static final int CARDS_IN_DECK = DECK_SUITE_COUNT * DECK_SIZE;
 	private Player[] player = new Player[2];
@@ -24,6 +29,7 @@ public class Stress extends Activity {
 					R.id.Button04P2 } };
 
 	private int current_value_1, current_value_2;
+	private boolean multiplayer = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -121,6 +127,40 @@ public class Stress extends Activity {
 				ensurePlayability();
 			}
 		}
+	}
+
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the currently selected menu XML resource.
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.layout.menu, menu);
+		Log.d("menu", "menu initialized");
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.new_multiplayer:
+			Toast.makeText(this, "new multiplayer game started!",
+					Toast.LENGTH_SHORT).show();
+			multiplayer = true;
+			initGame();
+			return true;
+		case R.id.new_singleplayer:
+			Toast.makeText(this, "new singleplayer game started!",
+					Toast.LENGTH_SHORT).show();
+			multiplayer = false;
+			initGame();
+			return true;
+		default:
+			// Don't toast text when a submenu is clicked
+			if (!item.hasSubMenu()) {
+				Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT)
+						.show();
+				return true;
+			}
+			break;
+		}
+		return false;
 	}
 
 	private OnClickListener clickListener = new OnClickListener() {
