@@ -8,9 +8,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class Stress extends Activity {
-	private static final String PLAYER_1 = "Player 1";
-	private static final String PLAYER_2 = "Player 2";
-
 	private Player[] player = new Player[2];
 	private Deck[] centerDeck = new Deck[2];
 
@@ -20,7 +17,11 @@ public class Stress extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		// Watch for button clicks.
+		addClickListener();
+		initGame();
+	}
+
+	private void addClickListener() {
 		int[] buttonIds = { R.id.Button01P1, R.id.Button02P1, R.id.Button03P1,
 				R.id.Button04P1, R.id.Button01P2, R.id.Button02P2,
 				R.id.Button03P2, R.id.Button04P2 };
@@ -28,7 +29,6 @@ public class Stress extends Activity {
 			Button button = (Button) findViewById(buttonId);
 			button.setOnClickListener(clickListener);
 		}
-		initGame();
 	}
 
 	private void initGame() {
