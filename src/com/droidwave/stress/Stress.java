@@ -100,6 +100,7 @@ public class Stress extends Activity {
 				int randomCard = player[playerNumber].getCardFromDeck();
 				setCenterStack(playerNumber, randomCard);
 			}
+			ensurePlayability();
 		}
 	}
 
