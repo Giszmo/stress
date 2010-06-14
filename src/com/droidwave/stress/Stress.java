@@ -39,6 +39,11 @@ public class Stress extends Activity {
 			stackToUpdate.setText(button.getText());
 		}
 
+		private initGame() {
+			// base setup
+
+		}
+
 		private String getPlayerByButton(Button button) {
 			String player = null;
 			switch (button.getId()) {
