@@ -37,10 +37,32 @@ public class Stress extends Activity {
 			centerDeck[playerNumber] = new Deck(0, 0);
 			int randomCard = player[playerNumber].getCardFromDeck();
 			setCenterStack(playerNumber, randomCard);
-
-			// Button playerButton = null;
-			// playerButton = (Button) findViewById(R.id.ButtonStack1);
 		}
+		Button playerButton = null;
+		playerButton = (Button) findViewById(R.id.Button01P1);
+		playerButton.setText("" + player[0].getOpenCard(0));
+
+		playerButton = (Button) findViewById(R.id.Button02P1);
+		playerButton.setText("" + player[0].getOpenCard(1));
+
+		playerButton = (Button) findViewById(R.id.Button03P1);
+		playerButton.setText("" + player[0].getOpenCard(2));
+
+		playerButton = (Button) findViewById(R.id.Button04P1);
+		playerButton.setText("" + player[0].getOpenCard(3));
+
+		playerButton = (Button) findViewById(R.id.Button01P2);
+		playerButton.setText("" + player[1].getOpenCard(0));
+
+		playerButton = (Button) findViewById(R.id.Button02P2);
+		playerButton.setText("" + player[1].getOpenCard(1));
+
+		playerButton = (Button) findViewById(R.id.Button03P2);
+		playerButton.setText("" + player[1].getOpenCard(2));
+
+		playerButton = (Button) findViewById(R.id.Button04P2);
+		playerButton.setText("" + player[1].getOpenCard(3));
+
 		return;
 	}
 
@@ -63,37 +85,45 @@ public class Stress extends Activity {
 	private OnClickListener clickListener = new OnClickListener() {
 		public void onClick(View v) {
 			Button button = (Button) v;
+			int playedACard = 0;
 			int playerNumber = getPlayerByButton(button);
-			int cardValue = getPlayedCardValue(button, player[playerNumber]);
+			int cardNumber = getPlayedCardNumber(button, player[playerNumber]);
+			int cardValue = player[playerNumber].getOpenCard(cardNumber);
 			if (Math.abs(current_value_1 - cardValue) % 10 == 1) {
 				setCenterStack(0, cardValue);
+				playedACard = 1;
 			} else if (Math.abs(current_value_2 - cardValue) % 10 == 1) {
 				setCenterStack(1, cardValue);
+				playedACard = 1;
 			}
-			// (abs($i-$n) % 10 == 1);
-			// put on stack & update current_value_1/2
-			// remove from player
+
+			if (playedACard == 1) {
+				player[playerNumber].playOpenCard(cardNumber);
+				int newCard = player[playerNumber].getOpenCard(cardNumber);
+				button.setText("" + newCard);
+
+			}
 
 		}
 
-		private int getPlayedCardValue(Button button, Player player) {
+		private int getPlayedCardNumber(Button button, Player player) {
 			switch (button.getId()) {
 			case R.id.Button01P1:
-				return player.getOpenCard(0);
+				return 0;
 			case R.id.Button02P1:
-				return player.getOpenCard(1);
+				return 1;
 			case R.id.Button03P1:
-				return player.getOpenCard(2);
+				return 2;
 			case R.id.Button04P1:
-				return player.getOpenCard(3);
+				return 3;
 			case R.id.Button01P2:
-				return player.getOpenCard(0);
+				return 0;
 			case R.id.Button02P2:
-				return player.getOpenCard(1);
+				return 1;
 			case R.id.Button03P2:
-				return player.getOpenCard(2);
+				return 2;
 			case R.id.Button04P2:
-				return player.getOpenCard(3);
+				return 3;
 			}
 			return 0; // unreachable!
 		}
