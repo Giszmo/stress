@@ -25,7 +25,7 @@ public class Stress extends Activity {
 			Button button = (Button) findViewById(buttonId);
 			button.setOnClickListener(clickListener);
 		}
-
+		initGame();
 	}
 
 	private void initGame() {
@@ -34,9 +34,19 @@ public class Stress extends Activity {
 			player[playerNumber] = new Player();
 			centerDeck[playerNumber] = new Deck(0, 0);
 			int randomCard = player[playerNumber].getCardFromDeck();
-			setCenterStack(randomCard);
+			setCenterStack(playerNumber, randomCard);
 		}
+		return;
+	}
 
+	private void setCenterStack(int stack, int card) {
+		Button stackToUpdate = null;
+		if (stack == 0) {
+			stackToUpdate = (Button) findViewById(R.id.ButtonStack1);
+		} else {
+			stackToUpdate = (Button) findViewById(R.id.ButtonStack2);
+		}
+		stackToUpdate.setText(card);
 		return;
 	}
 
