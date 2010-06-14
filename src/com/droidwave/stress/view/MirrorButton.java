@@ -5,11 +5,13 @@ package com.droidwave.stress.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.widget.Button;
 
 public class MirrorButton extends Button {
 	private float easing = 0;
+	private int notifyColor;
 
 	public MirrorButton(Context context) {
 		super(context);
@@ -39,14 +41,23 @@ public class MirrorButton extends Button {
 	}
 
 	private void easingEffect() {
-		easing *= .98;
-		int red = 0x00;
-		int green = (int) (0xff * easing);
-		int blue = 0x00;
-		int alpha = 0xff;
-		int color = 0x00;
-		color = (alpha << 24) + (red << 16) + (green << 8) + blue;
+		easing *= .99;
+		int red = easing(0x00, Color.red(notifyColor), easing);
+		int green = easing(0x00, Color.green(notifyColor), easing);
+		int blue = easing(0x00, Color.blue(notifyColor), easing);
+		int alpha = easing(0xff, Color.alpha(notifyColor), easing);
+		int color = Color.argb(alpha, red, green, blue);
 		setTextColor(color);
+	}
+
+	/**
+	 * @param target
+	 * @param source
+	 * @param easingFactor
+	 * @return
+	 */
+	private int easing(int target, int source, float easingFactor) {
+		return (int) ((1 - easingFactor) * target + easingFactor * source);
 	}
 
 	@Override
@@ -54,5 +65,20 @@ public class MirrorButton extends Button {
 			int after) {
 		super.onTextChanged(text, start, before, after);
 		easing = 1;
+	}
+
+	/**
+	 * @param notifyColor
+	 *            the notifyColor to set
+	 */
+	public void setNotifyColor(int notifyColor) {
+		this.notifyColor = notifyColor;
+	}
+
+	/**
+	 * @return the notifyColor
+	 */
+	public int getNotifyColor() {
+		return notifyColor;
 	}
 }
