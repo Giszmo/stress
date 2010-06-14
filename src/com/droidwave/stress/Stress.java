@@ -8,8 +8,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.droidwave.stress.view.MirrorButton;
+import com.droidwave.stress.view.StackSizeIndicator;
 
 public class Stress extends Activity {
+	private static final int DECK_SUITE_COUNT = 1;
+	private static final int DECK_SIZE = 13;
+	private static final int CARDS_IN_DECK = DECK_SUITE_COUNT * DECK_SIZE;
 	private Player[] player = new Player[2];
 	private Deck[] centerDeck = new Deck[2];
 	// buttonIds[player][card]
@@ -41,7 +45,8 @@ public class Stress extends Activity {
 	private void initGame() {
 		// base setup
 		for (int playerNumber = 0; playerNumber < 2; playerNumber++) {
-			player[playerNumber] = new Player();
+			player[playerNumber] = new Player(new Deck(DECK_SIZE,
+					DECK_SUITE_COUNT));
 			centerDeck[playerNumber] = new Deck(0, 0);
 			int randomCard = player[playerNumber].getCardFromDeck();
 			setCenterStack(playerNumber, randomCard, playerNumber);
@@ -49,7 +54,8 @@ public class Stress extends Activity {
 		}
 		player[0].setColor(Color.argb(0xff, 0xff, 0x00, 0x00));
 		player[1].setColor(Color.argb(0xff, 0x00, 0x00, 0xff));
-
+		updateInfo(0);
+		updateInfo(1);
 		MirrorButton playerButton = null;
 		for (int p = 0; p < 2; p++) {
 			int openCardId = 0;
@@ -78,20 +84,18 @@ public class Stress extends Activity {
 	}
 
 	private void playerWon() {
-
 		initGame();
 	}
 
 	private void updateInfo(int playerNumber) {
-		MirrorButton infoButton = null;
+		StackSizeIndicator info = null;
 		if (playerNumber == 0) {
-			infoButton = (MirrorButton) findViewById(R.id.ButtonInfo1);
+			info = (StackSizeIndicator) findViewById(R.id.Info1);
 		} else {
-			infoButton = (MirrorButton) findViewById(R.id.ButtonInfo2);
+			info = (StackSizeIndicator) findViewById(R.id.Info2);
 		}
-		int played = player[playerNumber].getCardsPlayed();
 		int remaining = player[playerNumber].remainingCards();
-		infoButton.setText(played + " / " + remaining);
+		info.setRemaining((float) remaining / (CARDS_IN_DECK - 4));
 	}
 
 	private void ensurePlayability() {

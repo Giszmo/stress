@@ -12,8 +12,13 @@
 <com.droidwave.stress.view.MirrorButton android:text="4" android:id="@+id/Button04P2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0xffffffff"/>
 </TableRow>
 
-<TableRow android:id="@+id/TableRowP2Info" android:layout_height="wrap_content" android:gravity="center" android:layout_centerInParent="true" android:layout_width="wrap_content" android:layout_below="@+id/TableRowP2">
-<com.droidwave.stress.view.MirrorButton android:id="@+id/ButtonInfo2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip" android:textStyle="bold" android:clickable="false" android:text="56"/>
+<TableRow android:id="@+id/TableRowP2Info" android:layout_height="wrap_content" android:gravity="center" android:layout_centerInParent="true" android:layout_width="fill_parent" android:layout_below="@+id/TableRowP2">
+<com.droidwave.stress.view.StackSizeIndicator android:id="@+id/Info2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="100"/>
 </TableRow>
 
 <TableRow android:id="@+id/TableRowCenter" android:layout_height="wrap_content" android:gravity="center" android:layout_centerInParent="true" android:layout_width="wrap_content">
@@ -21,8 +26,13 @@
 <com.droidwave.stress.view.MirrorButton android:text="10" android:id="@+id/ButtonStack2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip" android:textStyle="bold" android:clickable="false"/>
 </TableRow>
 
-<TableRow android:id="@+id/TableRowP1Info" android:layout_height="wrap_content" android:gravity="center" android:layout_centerInParent="true" android:layout_width="wrap_content" android:layout_above="@+id/TableRowP1">
-<com.droidwave.stress.view.MirrorButton android:id="@+id/ButtonInfo1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip" android:textStyle="bold" android:clickable="false" android:text="56"/>
+<TableRow android:id="@+id/TableRowP1Info" android:layout_height="wrap_content" android:gravity="center" android:layout_centerInParent="true" android:layout_width="fill_parent" android:layout_above="@+id/TableRowP1">
+<com.droidwave.stress.view.StackSizeIndicator android:id="@+id/Info1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="100"/>
 </TableRow>
 
 
@@ -34,4 +44,6 @@
 <com.droidwave.stress.view.MirrorButton android:text="7" android:id="@+id/Button03P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0x0"/>
 <com.droidwave.stress.view.MirrorButton android:text="8" android:id="@+id/Button04P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0x0"/>
 </TableRow>
+
+
 </RelativeLayout>

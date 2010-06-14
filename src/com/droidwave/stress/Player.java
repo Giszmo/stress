@@ -13,14 +13,13 @@ public class Player {
 	private int cardsPlayed;
 	private int color;
 
-	public Player() {
+	public Player(Deck deck) {
+		this.deck = deck;
 		setup();
-		return;
 	}
 
 	public void setup() {
 		cardsPlayed = 0;
-		deck = new Deck(13, 1);
 		for (int openCard = 0; openCard < 4; openCard++) {
 			loadOpenCard(openCard);
 		}
@@ -36,7 +35,6 @@ public class Player {
 		} else {
 			openCards[openCardSlot] = 0;
 		}
-		return;
 	}
 
 	public int getOpenCard(int openCardSlot) {
@@ -46,7 +44,6 @@ public class Player {
 	public void playOpenCard(int openCardSlot) {
 		loadOpenCard(openCardSlot);
 		cardsPlayed++;
-		return;
 	}
 
 	public int getCardsPlayed() {
@@ -58,11 +55,7 @@ public class Player {
 	}
 
 	public boolean finished() {
-		if (deck.size() == 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return deck.size() == 0;
 	}
 
 	/**
