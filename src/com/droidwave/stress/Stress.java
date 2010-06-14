@@ -11,10 +11,7 @@ public class Stress extends Activity {
 	Player players[];
 
 	public Stress() {
-		players = new Player[2];
-		for (int i = 0; i < 2; i++) {
-			players[i] = new Player();
-		}
+		initGame();
 	}
 
 	@Override
@@ -34,6 +31,33 @@ public class Stress extends Activity {
 	private void updateComponents() {
 	}
 
+	private void initGame() {
+		// base setup
+		players = new Player[2];
+		for (int i = 0; i < 2; i++) {
+			players[i] = new Player();
+		}
+	}
+
+	private Player getPlayerByButton(Button button) {
+		Player player = null;
+		switch (button.getId()) {
+		case R.id.Button01P1:
+		case R.id.Button02P1:
+		case R.id.Button03P1:
+		case R.id.Button04P1:
+			player = players[0];
+			break;
+		case R.id.Button01P2:
+		case R.id.Button02P2:
+		case R.id.Button03P2:
+		case R.id.Button04P2:
+			player = players[1];
+			break;
+		}
+		return player;
+	}
+
 	int switcherId = 0;
 	private OnClickListener clickListener = new OnClickListener() {
 		public void onClick(View v) {
@@ -46,25 +70,6 @@ public class Stress extends Activity {
 				stackToUpdate = (Button) findViewById(R.id.ButtonStack2);
 			}
 			stackToUpdate.setText(button.getText());
-		}
-
-		private Player getPlayerByButton(Button button) {
-			Player player = null;
-			switch (button.getId()) {
-			case R.id.Button01P1:
-			case R.id.Button02P1:
-			case R.id.Button03P1:
-			case R.id.Button04P1:
-				player = players[0];
-				break;
-			case R.id.Button01P2:
-			case R.id.Button02P2:
-			case R.id.Button03P2:
-			case R.id.Button04P2:
-				player = players[1];
-				break;
-			}
-			return player;
 		}
 	};
 }
