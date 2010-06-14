@@ -8,12 +8,12 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.Button;
 
-public class UpsideDownButton extends Button {
-	public UpsideDownButton(Context context) {
+public class MirrorButton extends Button {
+	public MirrorButton(Context context) {
 		super(context);
 	}
 
-	public UpsideDownButton(Context context, AttributeSet attrs) {
+	public MirrorButton(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
@@ -23,8 +23,13 @@ public class UpsideDownButton extends Button {
 		canvas.save();
 		// draw it rotated
 		float centerX = this.getWidth() / 2.0f;
-		float centerY = this.getHeight() / 2.0f;
+		float centerY = this.getHeight() / 1.8f;
 		canvas.rotate(180, centerX, centerY);
+		super.onDraw(canvas);
+		// restore the old matrix.
+		canvas.restore();
+		// draw translated
+		canvas.translate(0, -5f);
 		super.onDraw(canvas);
 		// restore the old matrix again
 		canvas.restore();

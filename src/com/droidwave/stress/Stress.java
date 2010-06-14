@@ -28,30 +28,15 @@ public class Stress extends Activity {
 	private OnClickListener clickListener = new OnClickListener() {
 		public void onClick(View v) {
 			Button button = (Button) v;
-			String player = getPlayerByButton(button);
 			switcherId = (switcherId + 1) % 2;
 			Button stackToUpdate = null;
-			Button stackToHide = null;
-			if (PLAYER_1.equals(player)) {
-				if (switcherId == 0) {
-					stackToUpdate = (Button) findViewById(R.id.ButtonStack1);
-					stackToHide = (Button) findViewById(R.id.ButtonStack1UpsideDown);
-				} else {
-					stackToUpdate = (Button) findViewById(R.id.ButtonStack2);
-					stackToHide = (Button) findViewById(R.id.ButtonStack2UpsideDown);
-				}
-			} else if (PLAYER_2.equals(player)) {
-				if (switcherId == 0) {
-					stackToUpdate = (Button) findViewById(R.id.ButtonStack1UpsideDown);
-					stackToHide = (Button) findViewById(R.id.ButtonStack1);
-				} else {
-					stackToUpdate = (Button) findViewById(R.id.ButtonStack2UpsideDown);
-					stackToHide = (Button) findViewById(R.id.ButtonStack2);
-				}
+			if (switcherId == 0) {
+				stackToUpdate = (Button) findViewById(R.id.ButtonStack1);
+			} else {
+				stackToUpdate = (Button) findViewById(R.id.ButtonStack2);
 			}
 			stackToUpdate.setVisibility(View.VISIBLE);
 			stackToUpdate.setText(button.getText());
-			stackToHide.setVisibility(View.GONE);
 		}
 
 		private String getPlayerByButton(Button button) {
