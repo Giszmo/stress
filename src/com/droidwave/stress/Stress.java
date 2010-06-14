@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class Stress extends Activity {
 	private static final String PLAYER_1 = "Player 1";
@@ -124,6 +125,10 @@ public class Stress extends Activity {
 				int newCard = player[playerNumber].getOpenCard(cardNumber);
 				button.setText("" + newCard);
 				ensurePlayability();
+				if (player[playerNumber].finished()) {
+					Toast.makeText(Stress.this, "player " + (playerNumber + 1)
+							+ "won", Toast.LENGTH_LONG);
+				}
 			}
 
 			return;

@@ -19,7 +19,7 @@ public class Player {
 
 	public void setup() {
 		cardsPlayed = 0;
-		deck = new Deck(13, 4);
+		deck = new Deck(13, 1);
 		for (int openCard = 0; openCard < 4; openCard++) {
 			loadOpenCard(openCard);
 		}
@@ -53,11 +53,10 @@ public class Player {
 	}
 
 	public boolean finished() {
-		for (int openCard = 0; openCard < 4; openCard++) {
-			if (openCards[openCard] != 0) {
-				return false;
-			}
+		if (deck.size() == 0) {
+			return true;
+		} else {
+			return false;
 		}
-		return true;
 	}
 }
