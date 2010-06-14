@@ -7,8 +7,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class Stress extends Activity {
-	private static final String PLAYER_1 = "Player 1";
-	private static final String PLAYER_2 = "Player 2";
+
+	Player players[];
+
+	public Stress() {
+		players = new Player[2];
+		for (int i = 0; i < 2; i++) {
+			players[i] = new Player();
+		}
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,20 +46,20 @@ public class Stress extends Activity {
 			stackToUpdate.setText(button.getText());
 		}
 
-		private String getPlayerByButton(Button button) {
-			String player = null;
+		private Player getPlayerByButton(Button button) {
+			Player player = null;
 			switch (button.getId()) {
 			case R.id.Button01P1:
 			case R.id.Button02P1:
 			case R.id.Button03P1:
 			case R.id.Button04P1:
-				player = PLAYER_1;
+				player = players[0];
 				break;
 			case R.id.Button01P2:
 			case R.id.Button02P2:
 			case R.id.Button03P2:
 			case R.id.Button04P2:
-				player = PLAYER_2;
+				player = players[1];
 				break;
 			}
 			return player;
