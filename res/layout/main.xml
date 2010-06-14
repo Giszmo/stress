@@ -5,25 +5,33 @@
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:stretchColumns="1">
 
-<TableRow android:id="@+id/TableRowP1" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_width="fill_parent">
-<com.droidwave.stress.view.MirrorButton android:text="5" android:id="@+id/Button01P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0x0"/>
-<com.droidwave.stress.view.MirrorButton android:text="6" android:id="@+id/Button02P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0x0"/>
-<com.droidwave.stress.view.MirrorButton android:text="7" android:id="@+id/Button03P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0x0"/>
-<com.droidwave.stress.view.MirrorButton android:text="8" android:id="@+id/Button04P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0x0"/>
-</TableRow>
-
-<TableRow android:id="@+id/TableRowCenter" android:layout_height="wrap_content" android:gravity="center" android:layout_centerInParent="true" android:layout_width="wrap_content">
-<com.droidwave.stress.view.MirrorButton android:text="9" android:id="@+id/ButtonStack1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip" android:textStyle="bold"/>
-<com.droidwave.stress.view.MirrorButton android:text="10" android:id="@+id/ButtonStack2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip" android:textStyle="bold"/>
-</TableRow>
-
-<TableRow android:id="@+id/TableRowP2" android:layout_height="wrap_content" android:layout_width="fill_parent">
+<TableRow android:id="@+id/TableRowP2" android:layout_height="wrap_content" android:layout_alignParentTop="true" android:layout_width="fill_parent">
 <com.droidwave.stress.view.MirrorButton android:text="1" android:id="@+id/Button01P2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0xffffffff"/>
 <com.droidwave.stress.view.MirrorButton android:text="2" android:id="@+id/Button02P2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0xffffffff"/>
 <com.droidwave.stress.view.MirrorButton android:text="3" android:id="@+id/Button03P2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0xffffffff"/>
 <com.droidwave.stress.view.MirrorButton android:text="4" android:id="@+id/Button04P2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0xffffffff"/>
 </TableRow>
 
+<TableRow android:id="@+id/TableRowP2Info" android:layout_height="wrap_content" android:gravity="center" android:layout_centerInParent="true" android:layout_width="wrap_content" android:layout_below="@+id/TableRowP2">
+<com.droidwave.stress.view.MirrorButton android:id="@+id/ButtonInfo2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip" android:textStyle="bold" android:clickable="false" android:text="56"/>
+</TableRow>
+
+<TableRow android:id="@+id/TableRowCenter" android:layout_height="wrap_content" android:gravity="center" android:layout_centerInParent="true" android:layout_width="wrap_content">
+<com.droidwave.stress.view.MirrorButton android:text="9" android:id="@+id/ButtonStack1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip" android:textStyle="bold" android:clickable="false"/>
+<com.droidwave.stress.view.MirrorButton android:text="10" android:id="@+id/ButtonStack2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip" android:textStyle="bold" android:clickable="false"/>
+</TableRow>
+
+<TableRow android:id="@+id/TableRowP1Info" android:layout_height="wrap_content" android:gravity="center" android:layout_centerInParent="true" android:layout_width="wrap_content" android:layout_above="@+id/TableRowP1">
+<com.droidwave.stress.view.MirrorButton android:id="@+id/ButtonInfo1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:width="100dip" android:textStyle="bold" android:clickable="false" android:text="56"/>
+</TableRow>
 
 
+
+
+<TableRow android:id="@+id/TableRowP1" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_width="fill_parent">
+<com.droidwave.stress.view.MirrorButton android:text="5" android:id="@+id/Button01P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0x0"/>
+<com.droidwave.stress.view.MirrorButton android:text="6" android:id="@+id/Button02P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0x0"/>
+<com.droidwave.stress.view.MirrorButton android:text="7" android:id="@+id/Button03P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0x0"/>
+<com.droidwave.stress.view.MirrorButton android:text="8" android:id="@+id/Button04P1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" android:textStyle="bold" app:notifyColor="0x0"/>
+</TableRow>
 </RelativeLayout>
