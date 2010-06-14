@@ -89,10 +89,10 @@ public class Stress extends Activity {
 			int playerNumber = getPlayerByButton(button);
 			int cardNumber = getPlayedCardNumber(button, player[playerNumber]);
 			int cardValue = player[playerNumber].getOpenCard(cardNumber);
-			if (Math.abs(current_value_1 - cardValue) % 10 == 1) {
+			if (Math.abs(current_value_1 - cardValue) % 11 == 1) {
 				setCenterStack(0, cardValue);
 				playedACard = 1;
-			} else if (Math.abs(current_value_2 - cardValue) % 10 == 1) {
+			} else if (Math.abs(current_value_2 - cardValue) % 11 == 1) {
 				setCenterStack(1, cardValue);
 				playedACard = 1;
 			}
