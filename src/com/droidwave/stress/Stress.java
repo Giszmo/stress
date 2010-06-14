@@ -10,8 +10,8 @@ public class Stress extends Activity {
 	private static final String PLAYER_1 = "Player 1";
 	private static final String PLAYER_2 = "Player 2";
 
-	private Player[] player;
-	private Deck[] centerDeck;
+	private Player[] player = new Player[2];
+	private Deck[] centerDeck = new Deck[2];
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,29 +51,28 @@ public class Stress extends Activity {
 		return;
 	}
 
-	int switcherId = 0;
 	private OnClickListener clickListener = new OnClickListener() {
 		public void onClick(View v) {
 			Button button = (Button) v;
 			CharSequence playedCard = button.getText();
-			switcherId = (switcherId + 1) % 2;
+			int player = getPlayerByButton(button);
 
 		}
 
-		private String getPlayerByButton(Button button) {
-			String player = null;
+		private int getPlayerByButton(Button button) {
+			int player;
 			switch (button.getId()) {
 			case R.id.Button01P1:
 			case R.id.Button02P1:
 			case R.id.Button03P1:
 			case R.id.Button04P1:
-				player = PLAYER_1;
+				player = 0;
 				break;
 			case R.id.Button01P2:
 			case R.id.Button02P2:
 			case R.id.Button03P2:
 			case R.id.Button04P2:
-				player = PLAYER_2;
+				player = 1;
 				break;
 			}
 			return player;

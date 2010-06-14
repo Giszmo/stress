@@ -13,12 +13,16 @@ public class Player {
 	private int cardsPlayed;
 
 	public Player() {
+		setup();
+		return;
+	}
+
+	public void setup() {
 		cardsPlayed = 0;
 		deck = new Deck(13, 4);
 		for (int openCard = 0; openCard < 4; openCard++) {
 			loadOpenCard(openCard);
 		}
-		return;
 	}
 
 	public int getCardFromDeck() {
