@@ -207,33 +207,32 @@ public class Stress extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.new_multiplayer:
-			Toast.makeText(this, "new multiplayer game started!",
+			Toast.makeText(this, "new multiplayer game started",
 					Toast.LENGTH_SHORT).show();
 			gameMode = GameMode.MULTIPLAYER;
 			initGame();
 			break;
 		case R.id.new_singleplayer:
-			Toast.makeText(this, "new singleplayer game started!",
+			Toast.makeText(this, "new singleplayer game started",
 					Toast.LENGTH_SHORT).show();
 			gameMode = GameMode.SINGLEPLAYER;
 			initGame();
 			break;
 		case R.id.new_demo:
-			Toast.makeText(this, "new demo started!", Toast.LENGTH_SHORT)
-					.show();
+			Toast.makeText(this, "new demo started", Toast.LENGTH_SHORT).show();
 			gameMode = GameMode.DEMO;
 			initGame();
 			break;
 		case R.id.easyy:
-			Toast.makeText(this, "ki set to easy", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "ai set to easy", Toast.LENGTH_SHORT).show();
 			kiLevel = KILevel.EASY;
 			break;
 		case R.id.medium:
-			Toast.makeText(this, "ki set to medium", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "ai set to medium", Toast.LENGTH_SHORT).show();
 			kiLevel = KILevel.MEDIUM;
 			break;
 		case R.id.hard:
-			Toast.makeText(this, "ki set to hard", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "ai set to hard", Toast.LENGTH_SHORT).show();
 			kiLevel = KILevel.HARD;
 			break;
 		case R.id.submenu:
