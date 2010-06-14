@@ -1,8 +1,13 @@
 package com.droidwave.stress;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,8 +34,56 @@ public class Stress extends Activity {
 					R.id.Button04P2 } };
 
 	private int current_value_1, current_value_2;
-	private boolean multiplayer = false;
+	private boolean multiplayer = true;
 	private KILevel kiLevel = KILevel.EASY;
+	private static final Map<KILevel, Long> kiDelay = new HashMap<KILevel, Long>();
+	static {
+		kiDelay.put(KILevel.EASY, 2000l);
+		kiDelay.put(KILevel.MEDIUM, 1500l);
+		kiDelay.put(KILevel.HARD, 1000l);
+	}
+	private Handler mHandler = new Handler();
+	private Runnable mUpdateTimerTask = new Runnable() {
+		public void run() {
+			long millis = SystemClock.uptimeMillis();
+			doKiStep();
+			// prevent it from blocking the main thread
+			int factor = 1;
+			long delay = kiDelay.get(kiLevel) * factor
+					- (SystemClock.uptimeMillis() - millis);
+			while (delay < 0) {
+				factor++;
+				delay = kiDelay.get(kiLevel) * factor
+						- (SystemClock.uptimeMillis() - millis);
+			}
+			mHandler.postDelayed(mUpdateTimerTask, delay);
+		}
+	};
+
+	@Override
+	public void onResume() {
+		doKiStep();
+		mHandler.removeCallbacks(mUpdateTimerTask);
+		mHandler.postDelayed(mUpdateTimerTask, kiDelay.get(kiLevel));
+		super.onResume();
+	}
+
+	private void doKiStep() {
+		int cardPick = (int) (Math.random() * 4);
+		playCard(1, cardPick);
+	}
+
+	private void startKI() {
+		doKiStep();
+		mHandler.removeCallbacks(mUpdateTimerTask);
+		mHandler.postDelayed(mUpdateTimerTask, kiDelay.get(kiLevel));
+	}
+
+	@Override
+	public void onPause() {
+		mHandler.removeCallbacks(mUpdateTimerTask);
+		super.onPause();
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +103,7 @@ public class Stress extends Activity {
 	}
 
 	private void initGame() {
+		stopKI();
 		// base setup
 		for (int playerNumber = 0; playerNumber < 2; playerNumber++) {
 			player[playerNumber] = new Player(new Deck(DECK_SIZE,
@@ -72,8 +126,14 @@ public class Stress extends Activity {
 				playerButton.setNotifyColor(player[p].getColor());
 			}
 		}
-
 		ensurePlayability();
+		if (!multiplayer) {
+			startKI();
+		}
+	}
+
+	private void stopKI() {
+		mHandler.removeCallbacks(mUpdateTimerTask);
 	}
 
 	private void setCenterStack(int stack, int card, int playerNumber) {
@@ -176,31 +236,36 @@ public class Stress extends Activity {
 		return false;
 	}
 
+	private synchronized void playCard(int playerNumber, int cardNumber) {
+		int cardValue = player[playerNumber].getOpenCard(cardNumber);
+		int playedACard = 0;
+		if (Math.abs(current_value_1 - cardValue) % 11 == 1) {
+			setCenterStack(0, cardValue, playerNumber);
+			playedACard = 1;
+		} else if (Math.abs(current_value_2 - cardValue) % 11 == 1) {
+			setCenterStack(1, cardValue, playerNumber);
+			playedACard = 1;
+		}
+
+		if (playedACard == 1) {
+			player[playerNumber].playOpenCard(cardNumber);
+			int newCard = player[playerNumber].getOpenCard(cardNumber);
+			Button button = (Button) findViewById(buttonIds[playerNumber][cardNumber]);
+			button.setText("" + newCard);
+			ensurePlayability();
+			updateInfo(playerNumber);
+			if (player[playerNumber].finished()) {
+				playerWon();
+			}
+		}
+	}
+
 	private OnClickListener clickListener = new OnClickListener() {
 		public void onClick(View v) {
 			Button button = (Button) v;
-			int playedACard = 0;
 			int playerNumber = getPlayerByButton(button);
 			int cardNumber = getPlayedCardNumber(button, player[playerNumber]);
-			int cardValue = player[playerNumber].getOpenCard(cardNumber);
-			if (Math.abs(current_value_1 - cardValue) % 11 == 1) {
-				setCenterStack(0, cardValue, playerNumber);
-				playedACard = 1;
-			} else if (Math.abs(current_value_2 - cardValue) % 11 == 1) {
-				setCenterStack(1, cardValue, playerNumber);
-				playedACard = 1;
-			}
-
-			if (playedACard == 1) {
-				player[playerNumber].playOpenCard(cardNumber);
-				int newCard = player[playerNumber].getOpenCard(cardNumber);
-				button.setText("" + newCard);
-				ensurePlayability();
-				updateInfo(playerNumber);
-				if (player[playerNumber].finished()) {
-					playerWon();
-				}
-			}
+			playCard(playerNumber, cardNumber);
 		}
 
 		private int getPlayedCardNumber(Button button, Player player) {
