@@ -40,6 +40,7 @@ public class Stress extends Activity {
 			centerDeck[playerNumber] = new Deck(0, 0);
 			int randomCard = player[playerNumber].getCardFromDeck();
 			setCenterStack(playerNumber, randomCard, playerNumber);
+			updateInfo(playerNumber);
 		}
 		player[0].setColor(Color.argb(0xff, 0xff, 0x00, 0x00));
 		player[1].setColor(Color.argb(0xff, 0x00, 0x00, 0xff));
@@ -80,6 +81,18 @@ public class Stress extends Activity {
 	private void playerWon() {
 		initGame();
 		return;
+	}
+
+	private void updateInfo(int playerNumber) {
+		MirrorButton infoButton = null;
+		if (playerNumber == 0) {
+			infoButton = (MirrorButton) findViewById(R.id.ButtonInfo1);
+		} else {
+			infoButton = (MirrorButton) findViewById(R.id.ButtonInfo2);
+		}
+		int played = player[playerNumber].getCardsPlayed();
+		int remaining = player[playerNumber].remainingCards();
+		infoButton.setText(played + " / " + remaining);
 	}
 
 	private void ensurePlayability() {
@@ -127,6 +140,7 @@ public class Stress extends Activity {
 				int newCard = player[playerNumber].getOpenCard(cardNumber);
 				button.setText("" + newCard);
 				ensurePlayability();
+				updateInfo(playerNumber);
 				if (player[playerNumber].finished()) {
 					playerWon();
 				}

@@ -53,6 +53,10 @@ public class Player {
 		return cardsPlayed;
 	}
 
+	public int remainingCards() {
+		return deck.size();
+	}
+
 	public boolean finished() {
 		if (deck.size() == 0) {
 			return true;
