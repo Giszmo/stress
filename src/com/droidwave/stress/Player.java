@@ -38,7 +38,7 @@ public class Player {
 		return;
 	}
 
-	public int readOpenCard(int openCardSlot) {
+	public int getOpenCard(int openCardSlot) {
 		return openCards[openCardSlot];
 	}
 
