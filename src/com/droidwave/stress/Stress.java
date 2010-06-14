@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.droidwave.stress.view.MirrorButton;
 
@@ -78,6 +77,11 @@ public class Stress extends Activity {
 		stackToUpdate.setText("" + card);
 	}
 
+	private void playerWon() {
+		initGame();
+		return;
+	}
+
 	private void ensurePlayability() {
 		int playable = 0;
 		for (int playerNumber = 0; playerNumber < 2; playerNumber++) {
@@ -95,7 +99,11 @@ public class Stress extends Activity {
 				int randomCard = player[playerNumber].getCardFromDeck();
 				setCenterStack(playerNumber, randomCard, playerNumber);
 			}
-			ensurePlayability();
+			if (player[0].finished() || player[1].finished()) {
+				playerWon();
+			} else {
+				ensurePlayability();
+			}
 		}
 	}
 
@@ -120,8 +128,7 @@ public class Stress extends Activity {
 				button.setText("" + newCard);
 				ensurePlayability();
 				if (player[playerNumber].finished()) {
-					Toast.makeText(Stress.this, "player " + (playerNumber + 1)
-							+ "won", Toast.LENGTH_LONG);
+					playerWon();
 				}
 			}
 		}
