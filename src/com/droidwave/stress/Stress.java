@@ -1,11 +1,14 @@
 package com.droidwave.stress;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.droidwave.stress.view.MirrorButton;
 
 public class Stress extends Activity {
 	private Player[] player = new Player[2];
@@ -37,51 +40,42 @@ public class Stress extends Activity {
 			player[playerNumber] = new Player();
 			centerDeck[playerNumber] = new Deck(0, 0);
 			int randomCard = player[playerNumber].getCardFromDeck();
-			setCenterStack(playerNumber, randomCard);
+			setCenterStack(playerNumber, randomCard, playerNumber);
 		}
-		Button playerButton = null;
-		playerButton = (Button) findViewById(R.id.Button01P1);
-		playerButton.setText("" + player[0].getOpenCard(0));
+		player[0].setColor(Color.argb(0xff, 0xff, 0x00, 0x00));
+		player[1].setColor(Color.argb(0xff, 0x00, 0x00, 0xff));
 
-		playerButton = (Button) findViewById(R.id.Button02P1);
-		playerButton.setText("" + player[0].getOpenCard(1));
-
-		playerButton = (Button) findViewById(R.id.Button03P1);
-		playerButton.setText("" + player[0].getOpenCard(2));
-
-		playerButton = (Button) findViewById(R.id.Button04P1);
-		playerButton.setText("" + player[0].getOpenCard(3));
-
-		playerButton = (Button) findViewById(R.id.Button01P2);
-		playerButton.setText("" + player[1].getOpenCard(0));
-
-		playerButton = (Button) findViewById(R.id.Button02P2);
-		playerButton.setText("" + player[1].getOpenCard(1));
-
-		playerButton = (Button) findViewById(R.id.Button03P2);
-		playerButton.setText("" + player[1].getOpenCard(2));
-
-		playerButton = (Button) findViewById(R.id.Button04P2);
-		playerButton.setText("" + player[1].getOpenCard(3));
+		MirrorButton playerButton = null;
+		int openCardId = 0;
+		for (int buttonId : new int[] { R.id.Button01P1, R.id.Button02P1,
+				R.id.Button03P1, R.id.Button04P1 }) {
+			playerButton = (MirrorButton) findViewById(buttonId);
+			playerButton.setText("" + player[0].getOpenCard(openCardId++));
+			playerButton.setNotifyColor(player[0].getColor());
+		}
+		openCardId = 0;
+		for (int buttonId : new int[] { R.id.Button01P2, R.id.Button02P2,
+				R.id.Button03P2, R.id.Button04P2 }) {
+			playerButton = (MirrorButton) findViewById(buttonId);
+			playerButton.setText("" + player[1].getOpenCard(openCardId++));
+			playerButton.setNotifyColor(player[1].getColor());
+		}
 
 		ensurePlayability();
-		return;
 	}
 
-	private void setCenterStack(int stack, int card) {
-		Button stackToUpdate = null;
+	private void setCenterStack(int stack, int card, int playerNumber) {
+		MirrorButton stackToUpdate = null;
 		if (stack == 0) {
-			stackToUpdate = (Button) findViewById(R.id.ButtonStack1);
+			stackToUpdate = (MirrorButton) findViewById(R.id.ButtonStack1);
 			current_value_1 = card;
 		} else {
-			stackToUpdate = (Button) findViewById(R.id.ButtonStack2);
+			stackToUpdate = (MirrorButton) findViewById(R.id.ButtonStack2);
 			current_value_2 = card;
 		}
 		centerDeck[stack].add(card);
-
+		stackToUpdate.setNotifyColor(player[playerNumber].getColor());
 		stackToUpdate.setText("" + card);
-
-		return;
 	}
 
 	private void ensurePlayability() {
@@ -99,7 +93,7 @@ public class Stress extends Activity {
 		if (playable == 0) {
 			for (int playerNumber = 0; playerNumber < 2; playerNumber++) {
 				int randomCard = player[playerNumber].getCardFromDeck();
-				setCenterStack(playerNumber, randomCard);
+				setCenterStack(playerNumber, randomCard, playerNumber);
 			}
 			ensurePlayability();
 		}
@@ -113,10 +107,10 @@ public class Stress extends Activity {
 			int cardNumber = getPlayedCardNumber(button, player[playerNumber]);
 			int cardValue = player[playerNumber].getOpenCard(cardNumber);
 			if (Math.abs(current_value_1 - cardValue) % 11 == 1) {
-				setCenterStack(0, cardValue);
+				setCenterStack(0, cardValue, playerNumber);
 				playedACard = 1;
 			} else if (Math.abs(current_value_2 - cardValue) % 11 == 1) {
-				setCenterStack(1, cardValue);
+				setCenterStack(1, cardValue, playerNumber);
 				playedACard = 1;
 			}
 
@@ -130,8 +124,6 @@ public class Stress extends Activity {
 							+ "won", Toast.LENGTH_LONG);
 				}
 			}
-
-			return;
 		}
 
 		private int getPlayedCardNumber(Button button, Player player) {

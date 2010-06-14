@@ -11,6 +11,7 @@ public class Player {
 	private int[] openCards = new int[4];
 	private Deck deck;
 	private int cardsPlayed;
+	private int color;
 
 	public Player() {
 		setup();
@@ -58,5 +59,20 @@ public class Player {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * @return
+	 */
+	public int getColor() {
+		return color;
+	}
+
+	/**
+	 * @param color
+	 *            the color to set
+	 */
+	public void setColor(int color) {
+		this.color = color;
 	}
 }
