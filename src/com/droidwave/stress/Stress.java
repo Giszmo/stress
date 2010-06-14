@@ -31,6 +31,9 @@ public class Stress extends Activity {
 		}
 	}
 
+	private void updateComponents() {
+	}
+
 	int switcherId = 0;
 	private OnClickListener clickListener = new OnClickListener() {
 		public void onClick(View v) {
@@ -42,7 +45,6 @@ public class Stress extends Activity {
 			} else {
 				stackToUpdate = (Button) findViewById(R.id.ButtonStack2);
 			}
-			stackToUpdate.setVisibility(View.VISIBLE);
 			stackToUpdate.setText(button.getText());
 		}
 
