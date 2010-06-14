@@ -12,6 +12,12 @@ import com.droidwave.stress.view.MirrorButton;
 public class Stress extends Activity {
 	private Player[] player = new Player[2];
 	private Deck[] centerDeck = new Deck[2];
+	// buttonIds[player][card]
+	private int[][] buttonIds = new int[][] {
+			{ R.id.Button01P1, R.id.Button02P1, R.id.Button03P1,
+					R.id.Button04P1 },
+			{ R.id.Button01P2, R.id.Button02P2, R.id.Button03P2,
+					R.id.Button04P2 } };
 
 	private int current_value_1, current_value_2;
 
@@ -24,12 +30,11 @@ public class Stress extends Activity {
 	}
 
 	private void addClickListener() {
-		int[] buttonIds = { R.id.Button01P1, R.id.Button02P1, R.id.Button03P1,
-				R.id.Button04P1, R.id.Button01P2, R.id.Button02P2,
-				R.id.Button03P2, R.id.Button04P2 };
-		for (int buttonId : buttonIds) {
-			Button button = (Button) findViewById(buttonId);
-			button.setOnClickListener(clickListener);
+		for (int[] playerButtonIds : buttonIds) {
+			for (int buttonId : playerButtonIds) {
+				Button button = (Button) findViewById(buttonId);
+				button.setOnClickListener(clickListener);
+			}
 		}
 	}
 
@@ -46,19 +51,13 @@ public class Stress extends Activity {
 		player[1].setColor(Color.argb(0xff, 0x00, 0x00, 0xff));
 
 		MirrorButton playerButton = null;
-		int openCardId = 0;
-		for (int buttonId : new int[] { R.id.Button01P1, R.id.Button02P1,
-				R.id.Button03P1, R.id.Button04P1 }) {
-			playerButton = (MirrorButton) findViewById(buttonId);
-			playerButton.setText("" + player[0].getOpenCard(openCardId++));
-			playerButton.setNotifyColor(player[0].getColor());
-		}
-		openCardId = 0;
-		for (int buttonId : new int[] { R.id.Button01P2, R.id.Button02P2,
-				R.id.Button03P2, R.id.Button04P2 }) {
-			playerButton = (MirrorButton) findViewById(buttonId);
-			playerButton.setText("" + player[1].getOpenCard(openCardId++));
-			playerButton.setNotifyColor(player[1].getColor());
+		for (int p = 0; p < 2; p++) {
+			int openCardId = 0;
+			for (int buttonId : buttonIds[p]) {
+				playerButton = (MirrorButton) findViewById(buttonId);
+				playerButton.setText("" + player[p].getOpenCard(openCardId++));
+				playerButton.setNotifyColor(player[p].getColor());
+			}
 		}
 
 		ensurePlayability();
@@ -79,8 +78,8 @@ public class Stress extends Activity {
 	}
 
 	private void playerWon() {
+
 		initGame();
-		return;
 	}
 
 	private void updateInfo(int playerNumber) {
@@ -148,44 +147,25 @@ public class Stress extends Activity {
 		}
 
 		private int getPlayedCardNumber(Button button, Player player) {
-			switch (button.getId()) {
-			case R.id.Button01P1:
-				return 0;
-			case R.id.Button02P1:
-				return 1;
-			case R.id.Button03P1:
-				return 2;
-			case R.id.Button04P1:
-				return 3;
-			case R.id.Button01P2:
-				return 0;
-			case R.id.Button02P2:
-				return 1;
-			case R.id.Button03P2:
-				return 2;
-			case R.id.Button04P2:
-				return 3;
+			for (int p = 0; p < 2; p++) {
+				for (int c = 0; c < 4; c++) {
+					if (buttonIds[p][c] == button.getId()) {
+						return c;
+					}
+				}
 			}
-			return 0; // unreachable!
+			throw new Error("Unknown Button pressed");
 		}
 
 		private int getPlayerByButton(Button button) {
-			int player = -1;
-			switch (button.getId()) {
-			case R.id.Button01P1:
-			case R.id.Button02P1:
-			case R.id.Button03P1:
-			case R.id.Button04P1:
-				player = 0;
-				break;
-			case R.id.Button01P2:
-			case R.id.Button02P2:
-			case R.id.Button03P2:
-			case R.id.Button04P2:
-				player = 1;
-				break;
+			for (int p = 0; p < 2; p++) {
+				for (int c = 0; c < 4; c++) {
+					if (buttonIds[p][c] == button.getId()) {
+						return p;
+					}
+				}
 			}
-			return player;
+			throw new Error("Unknown Button pressed");
 		}
 	};
 }
