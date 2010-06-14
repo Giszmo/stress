@@ -63,6 +63,7 @@ public class Stress extends Activity {
 		playerButton = (Button) findViewById(R.id.Button04P2);
 		playerButton.setText("" + player[1].getOpenCard(3));
 
+		ensurePlayability();
 		return;
 	}
 
@@ -80,6 +81,26 @@ public class Stress extends Activity {
 		stackToUpdate.setText("" + card);
 
 		return;
+	}
+
+	private void ensurePlayability() {
+		int playable = 0;
+		for (int playerNumber = 0; playerNumber < 2; playerNumber++) {
+			for (int cardNumber = 0; cardNumber < 4; cardNumber++) {
+				if (Math.abs(current_value_1
+						- player[playerNumber].getOpenCard(cardNumber)) % 11 == 1
+						|| Math.abs(current_value_2
+								- player[playerNumber].getOpenCard(cardNumber)) % 11 == 1) {
+					playable = 1;
+				}
+			}
+		}
+		if (playable == 0) {
+			for (int playerNumber = 0; playerNumber < 2; playerNumber++) {
+				int randomCard = player[playerNumber].getCardFromDeck();
+				setCenterStack(playerNumber, randomCard);
+			}
+		}
 	}
 
 	private OnClickListener clickListener = new OnClickListener() {
@@ -101,9 +122,10 @@ public class Stress extends Activity {
 				player[playerNumber].playOpenCard(cardNumber);
 				int newCard = player[playerNumber].getOpenCard(cardNumber);
 				button.setText("" + newCard);
-
+				ensurePlayability();
 			}
 
+			return;
 		}
 
 		private int getPlayedCardNumber(Button button, Player player) {
