@@ -21,6 +21,10 @@ public class Player {
 		return;
 	}
 
+	public int getCardFromDeck() {
+		return deck.draw();
+	}
+
 	private void loadOpenCard(int openCardSlot) {
 		if (deck.size() > 0) {
 			openCards[openCardSlot] = deck.draw();

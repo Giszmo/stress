@@ -10,6 +10,9 @@ public class Stress extends Activity {
 	private static final String PLAYER_1 = "Player 1";
 	private static final String PLAYER_2 = "Player 2";
 
+	private Player[] player;
+	private Deck[] centerDeck;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,6 +25,19 @@ public class Stress extends Activity {
 			Button button = (Button) findViewById(buttonId);
 			button.setOnClickListener(clickListener);
 		}
+
+	}
+
+	private void initGame() {
+		// base setup
+		for (int playerNumber = 0; playerNumber < 2; playerNumber++) {
+			player[playerNumber] = new Player();
+			centerDeck[playerNumber] = new Deck(0, 0);
+			int randomCard = player[playerNumber].getCardFromDeck();
+			setCenterStack(randomCard);
+		}
+
+		return;
 	}
 
 	int switcherId = 0;
@@ -37,11 +53,6 @@ public class Stress extends Activity {
 			}
 			stackToUpdate.setVisibility(View.VISIBLE);
 			stackToUpdate.setText(button.getText());
-		}
-
-		private initGame() {
-			// base setup
-
 		}
 
 		private String getPlayerByButton(Button button) {
