@@ -46,7 +46,8 @@ public class Stress extends Activity {
 		} else {
 			stackToUpdate = (Button) findViewById(R.id.ButtonStack2);
 		}
-		stackToUpdate.setText(card);
+		// stackToUpdate.setText(card); // FIXME ist integer, sollte
+		// charSequence sein
 		return;
 	}
 
@@ -54,15 +55,9 @@ public class Stress extends Activity {
 	private OnClickListener clickListener = new OnClickListener() {
 		public void onClick(View v) {
 			Button button = (Button) v;
+			CharSequence playedCard = button.getText();
 			switcherId = (switcherId + 1) % 2;
-			Button stackToUpdate = null;
-			if (switcherId == 0) {
-				stackToUpdate = (Button) findViewById(R.id.ButtonStack1);
-			} else {
-				stackToUpdate = (Button) findViewById(R.id.ButtonStack2);
-			}
-			stackToUpdate.setVisibility(View.VISIBLE);
-			stackToUpdate.setText(button.getText());
+
 		}
 
 		private String getPlayerByButton(Button button) {
