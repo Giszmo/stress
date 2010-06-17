@@ -1,0 +1,3 @@
+This is the very first and very basic version of the card game stress. Each player can play any of his cards that is either one higher or one lower than one of the center stacks. 1 can be put on 13 and vice versa. Who finishes his card stack first wins the Game.
+
+Latest version: 1.0 (for all Android versions)

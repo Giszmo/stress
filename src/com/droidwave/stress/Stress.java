@@ -157,6 +157,7 @@ public class Stress extends Activity {
 	}
 
 	private void playerWon() {
+
 		initGame();
 	}
 
@@ -262,6 +263,8 @@ public class Stress extends Activity {
 			ensurePlayability();
 			updateInfo(playerNumber);
 			if (player[playerNumber].finished()) {
+				Toast.makeText(this, "Player " + (1 + playerNumber) + " won!",
+						Toast.LENGTH_SHORT).show();
 				playerWon();
 			}
 		}

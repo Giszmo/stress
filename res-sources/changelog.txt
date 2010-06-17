@@ -1,0 +1,9 @@
+version 1.1:
+notification on who won the game
+slower fade out for the cards played
+
+version 1.0:
+initial game
+playable in single and multiplayer mode
+demo mode
+

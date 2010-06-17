@@ -41,7 +41,7 @@ public class MirrorButton extends Button {
 	}
 
 	private void easingEffect() {
-		easing *= .985;
+		easing *= .99;
 		int red = easing(0x00, Color.red(notifyColor), easing);
 		int green = easing(0x00, Color.green(notifyColor), easing);
 		int blue = easing(0x00, Color.blue(notifyColor), easing);
