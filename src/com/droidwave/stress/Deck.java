@@ -23,6 +23,9 @@ public class Deck {
 	}
 
 	public int draw() {
+		if (cards.size() <= 0) {
+			return 0;
+		}
 		int cardIndex = (int) Math.random() * cards.size();
 		return cards.remove(cardIndex);
 	}
