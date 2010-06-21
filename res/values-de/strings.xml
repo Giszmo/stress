@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Stress</string>
+    <string name="new_multiplayer">Mehrspieler</string>
+    <string name="new_multiplayer_started">neue Runde Mehrspieler wurde gestartet</string>
+    <string name="new_singleplayer">Einzelspieler</string>
+    <string name="new_singleplayer_started">neue Runde Einzelspieler wurde gestartet</string>
+    <string name="new_demo">Demo</string>
+    <string name="new_demo_started">Demo wurde gestartet</string>
+    <string name="helpHeader">Hilfe</string>
+    <string name="easy">leicht</string>
+    <string name="medium">mittel</string>
+    <string name="hard">schwer</string>
+    <string name="info">Info</string>
+    <string name="ai">KI</string>
+    <string name="ai_set_to">KI:</string>
+    <string name="player_n_wins">Spieler %n1% hat gewonnen</string>
+    <string name="game_is_a_draw">Unentschieden</string>
+</resources>

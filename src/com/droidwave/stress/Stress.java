@@ -157,7 +157,15 @@ public class Stress extends Activity {
 	}
 
 	private void playerWon() {
-
+		if (player[0].finished() && player[1].finished()) {
+			toast(R.string.game_is_a_draw);
+		} else if (player[0].finished()) {
+			toast((getText(R.string.player_n_wins)).toString().replaceFirst(
+					"%n1%", "1"));
+		} else if (player[1].finished()) {
+			toast((getText(R.string.player_n_wins)).toString().replaceFirst(
+					"%n1%", "2"));
+		}
 		initGame();
 	}
 
@@ -212,39 +220,46 @@ public class Stress extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.new_multiplayer:
-			toast("new multiplayer game started");
+			toast(R.string.new_multiplayer_started);
 			gameMode = GameMode.MULTIPLAYER;
 			initGame();
 			break;
 		case R.id.new_singleplayer:
-			toast("new singleplayer game started");
+			toast(R.string.new_singleplayer_started);
 			gameMode = GameMode.SINGLEPLAYER;
 			initGame();
 			break;
 		case R.id.new_demo:
-			toast("new demo started");
+			toast(R.string.new_demo_started);
 			gameMode = GameMode.DEMO;
 			initGame();
 			break;
 		case R.id.easyy:
-			toast("ai set to easy");
-			kiLevel = KILevel.EASY;
+			toast(getText(R.string.ai_set_to) + " " + getText(R.string.easy));
 			break;
 		case R.id.medium:
-			toast("ai set to medium");
+			toast(getText(R.string.ai_set_to) + " " + getText(R.string.medium));
 			kiLevel = KILevel.MEDIUM;
 			break;
 		case R.id.hard:
-			toast("ai set to hard");
+			toast(getText(R.string.ai_set_to) + " " + getText(R.string.hard));
 			kiLevel = KILevel.HARD;
 			break;
 		case R.id.submenu:
-		case R.id.bla:
+		case R.id.info:
 			break;
 		default:
 			throw new Error("Unknown menu entry clicked: " + item.getItemId());
 		}
 		return true;
+	}
+
+	private void toast(int resId) {
+		toast(getText(resId));
+	}
+
+	private void toast(CharSequence charSequence) {
+		toast("" + charSequence);
 	}
 
 	private void toast(String text) {
@@ -270,7 +285,6 @@ public class Stress extends Activity {
 			ensurePlayability();
 			updateInfo(playerNumber);
 			if (player[playerNumber].finished()) {
-				toast("Player " + (1 + playerNumber) + " won!");
 				playerWon();
 			}
 		}

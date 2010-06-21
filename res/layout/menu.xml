@@ -5,16 +5,21 @@
     <item android:id="@+id/new_multiplayer"
         android:title="@string/new_multiplayer" />
     <item android:id="@+id/submenu"
-        android:title="AI">
+        android:title="@string/ai">
         <menu>        
             <item android:id="@+id/easyy"
-                android:title=":)"/>
+                android:title="@string/easy"/>
             <item android:id="@+id/medium"
-                android:title=":|"/>
+                android:title="@string/medium"/>
             <item android:id="@+id/hard"
-                android:title=":/"/>
+                android:title="@string/hard"/>
         </menu>
     </item>
     <item android:id="@+id/new_demo"
-        android:title="Demo" />
+        android:title="@string/new_demo" />
+    <item android:id="@+id/help"
+        android:title="@string/helpHeader">
+        <item android:id="@+id/info"
+        android:title="@string/info"/>
+    </item>
 </menu>
