@@ -33,7 +33,7 @@ public class Stress extends Activity {
 			{ R.id.Button01P2, R.id.Button02P2, R.id.Button03P2,
 					R.id.Button04P2 } };
 
-	private int current_value_1, current_value_2;
+	private int[] currentValue = new int[2];
 	private GameMode gameMode = GameMode.SINGLEPLAYER;
 	private KILevel kiLevel = KILevel.EASY;
 	private static final Map<KILevel, Long> kiDelay = new HashMap<KILevel, Long>();
@@ -146,10 +146,10 @@ public class Stress extends Activity {
 		MirrorButton stackToUpdate = null;
 		if (stack == 0) {
 			stackToUpdate = (MirrorButton) findViewById(R.id.ButtonStack1);
-			current_value_1 = card;
+			currentValue[0] = card;
 		} else {
 			stackToUpdate = (MirrorButton) findViewById(R.id.ButtonStack2);
-			current_value_2 = card;
+			currentValue[1] = card;
 		}
 		centerDeck[stack].add(card);
 		stackToUpdate.setNotifyColor(player[playerNumber].getColor());
@@ -173,27 +173,31 @@ public class Stress extends Activity {
 	}
 
 	private void ensurePlayability() {
-		int playable = 0;
+		boolean playable = false;
 		for (int playerNumber = 0; playerNumber < 2; playerNumber++) {
 			for (int cardNumber = 0; cardNumber < 4; cardNumber++) {
-				if (Math.abs(current_value_1
-						- player[playerNumber].getOpenCard(cardNumber)) % 11 == 1
-						|| Math.abs(current_value_2
-								- player[playerNumber].getOpenCard(cardNumber)) % 11 == 1) {
-					playable = 1;
+				for (int currentValueNumber = 0; currentValueNumber < 2; currentValueNumber++) {
+					if (Math.abs(currentValue[currentValueNumber]
+							- player[playerNumber].getOpenCard(cardNumber)) % 11 == 1) {
+						playable = true;
+					}
 				}
 			}
 		}
-		if (playable == 0) {
-			for (int playerNumber = 0; playerNumber < 2; playerNumber++) {
-				int randomCard = player[playerNumber].getCardFromDeck();
-				setCenterStack(playerNumber, randomCard, playerNumber);
-			}
+		if (!playable) {
+			drawNewCenterCards();
 			if (player[0].finished() || player[1].finished()) {
 				playerWon();
 			} else {
 				ensurePlayability();
 			}
+		}
+	}
+
+	private void drawNewCenterCards() {
+		for (int playerNumber = 0; playerNumber < 2; playerNumber++) {
+			int randomCard = player[playerNumber].getCardFromDeck();
+			setCenterStack(playerNumber, randomCard, playerNumber);
 		}
 	}
 
@@ -208,35 +212,34 @@ public class Stress extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.new_multiplayer:
-			Toast.makeText(this, "new multiplayer game started",
-					Toast.LENGTH_SHORT).show();
+			toast("new multiplayer game started");
 			gameMode = GameMode.MULTIPLAYER;
 			initGame();
 			break;
 		case R.id.new_singleplayer:
-			Toast.makeText(this, "new singleplayer game started",
-					Toast.LENGTH_SHORT).show();
+			toast("new singleplayer game started");
 			gameMode = GameMode.SINGLEPLAYER;
 			initGame();
 			break;
 		case R.id.new_demo:
-			Toast.makeText(this, "new demo started", Toast.LENGTH_SHORT).show();
+			toast("new demo started");
 			gameMode = GameMode.DEMO;
 			initGame();
 			break;
 		case R.id.easyy:
-			Toast.makeText(this, "ai set to easy", Toast.LENGTH_SHORT).show();
+			toast("ai set to easy");
 			kiLevel = KILevel.EASY;
 			break;
 		case R.id.medium:
-			Toast.makeText(this, "ai set to medium", Toast.LENGTH_SHORT).show();
+			toast("ai set to medium");
 			kiLevel = KILevel.MEDIUM;
 			break;
 		case R.id.hard:
-			Toast.makeText(this, "ai set to hard", Toast.LENGTH_SHORT).show();
+			toast("ai set to hard");
 			kiLevel = KILevel.HARD;
 			break;
 		case R.id.submenu:
+		case R.id.bla:
 			break;
 		default:
 			throw new Error("Unknown menu entry clicked: " + item.getItemId());
@@ -244,18 +247,22 @@ public class Stress extends Activity {
 		return true;
 	}
 
+	private void toast(String text) {
+		Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+	}
+
 	private void playCard(int playerNumber, int cardNumber) {
 		int cardValue = player[playerNumber].getOpenCard(cardNumber);
-		int playedACard = 0;
-		if (Math.abs(current_value_1 - cardValue) % 11 == 1) {
+		boolean playedACard = false;
+		if (Math.abs(currentValue[0] - cardValue) % 11 == 1) {
 			setCenterStack(0, cardValue, playerNumber);
-			playedACard = 1;
-		} else if (Math.abs(current_value_2 - cardValue) % 11 == 1) {
+			playedACard = true;
+		} else if (Math.abs(currentValue[1] - cardValue) % 11 == 1) {
 			setCenterStack(1, cardValue, playerNumber);
-			playedACard = 1;
+			playedACard = true;
 		}
 
-		if (playedACard == 1) {
+		if (playedACard) {
 			player[playerNumber].playOpenCard(cardNumber);
 			int newCard = player[playerNumber].getOpenCard(cardNumber);
 			Button button = (Button) findViewById(buttonIds[playerNumber][cardNumber]);
@@ -263,8 +270,7 @@ public class Stress extends Activity {
 			ensurePlayability();
 			updateInfo(playerNumber);
 			if (player[playerNumber].finished()) {
-				Toast.makeText(this, "Player " + (1 + playerNumber) + " won!",
-						Toast.LENGTH_SHORT).show();
+				toast("Player " + (1 + playerNumber) + " won!");
 				playerWon();
 			}
 		}
