@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -66,6 +67,16 @@ public class Stress extends Activity {
 		mHandler.removeCallbacks(mUpdateTimerTask);
 		mHandler.postDelayed(mUpdateTimerTask, kiDelay.get(kiLevel));
 		super.onResume();
+		// if (sensorManager != null) {
+		// Sensor orientation =
+		// sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+		// if (orientation != null) {
+		// sensorManager.registerListener(this,
+		// orientation,
+		// SensorManager.SENSOR_DELAY_GAME,
+		// null);
+		// }
+		// }
 	}
 
 	private void doKiStep() {
@@ -287,6 +298,46 @@ public class Stress extends Activity {
 			if (player[playerNumber].finished()) {
 				playerWon();
 			}
+		}
+	}
+
+	public boolean onTrackballEvent(MotionEvent event) {
+		int N = event.getHistorySize();
+		for (int i = 0; i < N; i++) {
+			int buttonId = getButtonIdByDirection(event.getHistoricalX(i),
+					event.getHistoricalY(i));
+			if (buttonId >= 0) {
+				playCard(0, buttonId);
+				Log.i("trackball", "X=" + event.getHistoricalX(i) + "\nY="
+						+ event.getHistoricalY(i) + "\npressure="
+						+ event.getHistoricalPressure(i) + "\nsize="
+						+ event.getHistoricalSize(i));
+			}
+		}
+		event.setAction(MotionEvent.ACTION_CANCEL);
+		return true;
+	}
+
+	/**
+	 * @param historicalX
+	 * @param historicalY
+	 * @return
+	 */
+	private int getButtonIdByDirection(float x, float y) {
+		if (Math.abs(x) > Math.abs(y)) {
+			if (x > 0) {
+				return 3;
+			} else {
+				return 0;
+			}
+		} else if (Math.abs(y) > Math.abs(x)) {
+			if (y > 0) {
+				return 1;
+			} else {
+				return 2;
+			}
+		} else {
+			return -1;
 		}
 	}
 
