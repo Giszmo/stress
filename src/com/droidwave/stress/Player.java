@@ -1,12 +1,5 @@
-/**
- * 
- */
 package com.droidwave.stress;
 
-/**
- * @author leo
- * 
- */
 public class Player {
 	private int[] openCards = new int[4];
 	private Deck deck;
@@ -58,17 +51,10 @@ public class Player {
 		return deck.size() == 0;
 	}
 
-	/**
-	 * @return
-	 */
 	public int getColor() {
 		return color;
 	}
 
-	/**
-	 * @param color
-	 *            the color to set
-	 */
 	public void setColor(int color) {
 		this.color = color;
 	}

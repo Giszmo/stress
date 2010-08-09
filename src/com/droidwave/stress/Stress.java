@@ -318,11 +318,6 @@ public class Stress extends Activity {
 		return true;
 	}
 
-	/**
-	 * @param historicalX
-	 * @param historicalY
-	 * @return
-	 */
 	private int getButtonIdByDirection(float x, float y) {
 		if (Math.abs(x) > Math.abs(y)) {
 			if (x > 0) {

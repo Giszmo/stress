@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.droidwave.stress.view;
 
 import android.content.Context;
@@ -50,12 +47,6 @@ public class MirrorButton extends Button {
 		setTextColor(color);
 	}
 
-	/**
-	 * @param target
-	 * @param source
-	 * @param easingFactor
-	 * @return
-	 */
 	private int easing(int target, int source, float easingFactor) {
 		return (int) ((1 - easingFactor) * target + easingFactor * source);
 	}
@@ -67,17 +58,10 @@ public class MirrorButton extends Button {
 		easing = 1;
 	}
 
-	/**
-	 * @param notifyColor
-	 *            the notifyColor to set
-	 */
 	public void setNotifyColor(int notifyColor) {
 		this.notifyColor = notifyColor;
 	}
 
-	/**
-	 * @return the notifyColor
-	 */
 	public int getNotifyColor() {
 		return notifyColor;
 	}

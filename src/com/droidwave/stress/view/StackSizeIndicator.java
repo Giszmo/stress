@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.droidwave.stress.view;
 
 import android.content.Context;
@@ -8,10 +5,6 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
-/**
- * @author leo
- * 
- */
 public class StackSizeIndicator extends ProgressBar {
 
 	private float remaining;
@@ -34,9 +27,6 @@ public class StackSizeIndicator extends ProgressBar {
 		canvas.restore();
 	}
 
-	/**
-	 * @param f
-	 */
 	public void setRemaining(float remaining) {
 		this.remaining = remaining;
 	}
