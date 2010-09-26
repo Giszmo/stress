@@ -247,6 +247,7 @@ public class Stress extends Activity {
 			break;
 		case R.id.easyy:
 			toast(getText(R.string.ai_set_to) + " " + getText(R.string.easy));
+			kiLevel = KILevel.EASY;
 			break;
 		case R.id.medium:
 			toast(getText(R.string.ai_set_to) + " " + getText(R.string.medium));
