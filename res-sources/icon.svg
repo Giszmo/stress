@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="72"
-   height="72"
+   width="512"
+   height="512"
    id="svg3924"
    version="1.1"
    inkscape:version="0.47 r22583"
@@ -35,9 +35,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8284272"
-     inkscape:cx="33.266677"
-     inkscape:cy="-4.8610911"
+     inkscape:zoom="1"
+     inkscape:cx="324.23216"
+     inkscape:cy="273.85439"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
@@ -65,23 +65,27 @@
      id="layer1"
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     transform="translate(0,24)">
-    <rect
-       style="fill:#ffde00;fill-opacity:1;stroke:none"
-       id="rect3934"
-       width="72"
-       height="72.001556"
-       x="0"
-       y="-24"
-       rx="8.375"
-       ry="8.4085474"
-       inkscape:export-filename="/home/leo/Desktop/Besteck.png"
-       inkscape:export-xdpi="45"
-       inkscape:export-ydpi="45" />
-    <path
-       style="fill:#888888;fill-opacity:1;stroke:none"
-       d="m 43.778174,-16.549436 19.710602,0 L 24.597903,12.795495 63.135222,7.668971 29.194097,34.539028 42.054602,36.085824 16.642952,40.549436 29.945398,20.750446 27.42633,31.003494 47.932427,14.209708 8.511224,19.689786 43.778174,-16.549436 z"
-       id="path2882"
-       sodipodi:nodetypes="cccccccccccc" />
+     transform="translate(0,464)">
+    <g
+       id="g2814"
+       transform="matrix(7.1109788,0,0,7.1109788,0,-293.3365)">
+      <rect
+         inkscape:export-ydpi="45"
+         inkscape:export-xdpi="45"
+         inkscape:export-filename="/home/leo/Desktop/Besteck.png"
+         ry="8.4085474"
+         rx="8.375"
+         y="-24"
+         x="0"
+         height="72.001556"
+         width="72"
+         id="rect3934"
+         style="fill:#ffde00;fill-opacity:1;stroke:none" />
+      <path
+         sodipodi:nodetypes="cccccccccccc"
+         id="path2882"
+         d="m 43.778174,-16.549436 19.710602,0 L 24.597903,12.795495 63.135222,7.668971 29.194097,34.539028 42.054602,36.085824 16.642952,40.549436 29.945398,20.750446 27.42633,31.003494 47.932427,14.209708 8.511224,19.689786 43.778174,-16.549436 z"
+         style="fill:#888888;fill-opacity:1;stroke:none" />
+    </g>
   </g>
 </svg>
