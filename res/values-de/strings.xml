@@ -14,6 +14,6 @@
     <string name="info">Info</string>
     <string name="ai">KI</string>
     <string name="ai_set_to">KI:</string>
-    <string name="player_n_wins">Spieler %n1% hat gewonnen</string>
+    <string name="player_n_wins">Spieler XX1XX hat gewonnen</string>
     <string name="game_is_a_draw">Unentschieden</string>
 </resources>

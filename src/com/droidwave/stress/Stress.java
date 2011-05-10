@@ -67,16 +67,6 @@ public class Stress extends Activity {
 		mHandler.removeCallbacks(mUpdateTimerTask);
 		mHandler.postDelayed(mUpdateTimerTask, kiDelay.get(kiLevel));
 		super.onResume();
-		// if (sensorManager != null) {
-		// Sensor orientation =
-		// sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-		// if (orientation != null) {
-		// sensorManager.registerListener(this,
-		// orientation,
-		// SensorManager.SENSOR_DELAY_GAME,
-		// null);
-		// }
-		// }
 	}
 
 	private void doKiStep() {
@@ -172,10 +162,10 @@ public class Stress extends Activity {
 			toast(R.string.game_is_a_draw);
 		} else if (player[0].finished()) {
 			toast((getText(R.string.player_n_wins)).toString().replaceFirst(
-					"%n1%", "1"));
+					"XX1XX", "1"));
 		} else if (player[1].finished()) {
 			toast((getText(R.string.player_n_wins)).toString().replaceFirst(
-					"%n1%", "2"));
+					"XX1XX", "2"));
 		}
 		initGame();
 	}

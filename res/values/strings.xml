@@ -14,6 +14,6 @@
     <string name="info">info</string>
     <string name="ai">AI</string>
     <string name="ai_set_to">ai set to:</string>
-    <string name="player_n_wins">player %n1% wins</string>
+    <string name="player_n_wins">player XX1XX wins</string>
     <string name="game_is_a_draw">this game was a draw</string>
 </resources>
