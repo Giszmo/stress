@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+	android:id="@+id/mainLinearLayout"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ads="http://schemas.android.com/apk/res/com.droidwave.stress"
+	android:orientation="vertical"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent">
+	<org.anddev.andengine.opengl.view.RenderSurfaceView
+		android:id="@+id/rendersurfaceview"
+		android:layout_width="fill_parent" 
+		android:layout_height="fill_parent" />
+	<com.google.ads.AdView
+        android:id="@+id/ad"
+        android:layout_width="fill_parent"
+		android:layout_height="75px"
+        ads:adUnitId="a14da99d4397f40"
+		ads:adSize="BANNER"/>
+</LinearLayout>
