@@ -7,7 +7,9 @@ import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
+import org.anddev.andengine.entity.scene.Scene.IOnSceneTouchListener;
 import org.anddev.andengine.entity.util.FPSLogger;
+import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.ui.activity.LayoutGameActivity;
 
 import android.view.Display;
@@ -21,15 +23,10 @@ import com.droidwave.stress.entity.SoundSystem;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 
-public class Start extends LayoutGameActivity // implements
-// IOnSceneTouchListener
-{
+public class Start extends LayoutGameActivity implements IOnSceneTouchListener {
 	public static final int LAYER_BACKGROUND = 0;
-	public static final int LAYER_TREES = 1;
-	public static final int LAYER_UNITS = 2;
-	public static final int LAYER_CONTROLS = 3;
-
-	public static final float EASE_DURATION = 1.0f;
+	public static final int LAYER_CARDS = 1;
+	public static final int LAYER_CONTROLS = 2;
 
 	public float WIDTH;
 	public float HEIGHT;
@@ -129,5 +126,12 @@ public class Start extends LayoutGameActivity // implements
 	protected int getRenderSurfaceViewID() {
 		return R.id.rendersurfaceview;
 	}
+
 	// /Overrides for LayoutGameActivity
+
+	@Override
+	public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -3,14 +3,13 @@ package com.droidwave.stress.entity;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.droidwave.stress.R;
-import com.droidwave.stress.R.raw;
-
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.util.Log;
+
+import com.droidwave.stress.R;
 
 public class SoundSystem {
 	private static Context context;
@@ -55,7 +54,7 @@ public class SoundSystem {
 		if (bgMediaPlayer != null) {
 			float volume;
 			if (configuration.isSound()) {
-				volume = configuration.getVolumeBg();
+				volume = 1;
 			} else {
 				volume = 0;
 			}

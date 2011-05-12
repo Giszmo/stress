@@ -6,7 +6,6 @@ import java.util.Observable;
 
 import android.os.Handler;
 import android.os.SystemClock;
-import android.widget.Button;
 
 import com.droidwave.stress.notification.CardPlayedNotification;
 import com.droidwave.stress.notification.NewCardNotification;
@@ -89,6 +88,14 @@ public class Stress extends Observable {
 
 	private void stopKI() {
 		mHandler.removeCallbacks(mUpdateTimerTask);
+	}
+
+	private void setCenterStack(int stack, int card, int playerNumber) {
+		if (stack == 0) {
+			currentValue[0] = card;
+		} else {
+			currentValue[1] = card;
+		}
 	}
 
 	private void playerWon() {
@@ -178,11 +185,7 @@ public class Stress extends Observable {
 			notifyObservers(new CardPlayedNotification(playerNumber,
 					cardNumber, targetNumber, true));
 			player[playerNumber].playOpenCard(cardNumber);
-			int newCard = player[playerNumber].getOpenCard(cardNumber);
-			Button button = (Button) findViewById(buttonIds[playerNumber][cardNumber]);
-			button.setText("" + newCard);
 			ensurePlayability();
-			updateInfo(playerNumber);
 			if (player[playerNumber].finished()) {
 				playerWon();
 			}
