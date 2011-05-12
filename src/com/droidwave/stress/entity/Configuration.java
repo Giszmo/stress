@@ -1,4 +1,4 @@
-package com.droidwave.stress;
+package com.droidwave.stress.entity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

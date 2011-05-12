@@ -1,21 +1,23 @@
-package com.droidwave.stress;
+package com.droidwave.stress.entity;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Deck {
+	public static final int SUITE_COUNT = 4;
+	public static final int SUIT_SIZE = 13;
+	public static final int CARD_COUNT = SUITE_COUNT * SUIT_SIZE;
 
-	private List<Integer> cards;
+	private final List<Integer> cards = new ArrayList<Integer>();
 
-	public Deck(int suitSize, int suitCount) {
-		cards = new ArrayList<Integer>();
-		init(suitSize, suitCount);
+	public Deck() {
+		init();
 	}
 
-	private void init(int suitSize, int suitCount) {
-		for (int i = 0; i < suitCount; i++) {
-			for (int j = 0; j < suitSize; j++) {
+	private void init() {
+		for (int i = 0; i < SUITE_COUNT; i++) {
+			for (int j = 0; j < SUIT_SIZE; j++) {
 				cards.add(j + 1);
 			}
 		}

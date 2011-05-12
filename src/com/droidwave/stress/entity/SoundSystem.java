@@ -1,7 +1,10 @@
-package com.droidwave.stress;
+package com.droidwave.stress.entity;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.droidwave.stress.R;
+import com.droidwave.stress.R.raw;
 
 import android.content.Context;
 import android.media.AudioManager;

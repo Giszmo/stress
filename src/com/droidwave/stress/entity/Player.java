@@ -1,13 +1,14 @@
-package com.droidwave.stress;
+package com.droidwave.stress.entity;
 
-public class Player {
+import java.util.Observable;
+
+public class Player extends Observable {
 	private int[] openCards = new int[4];
 	private Deck deck;
 	private int cardsPlayed;
-	private int color;
 
-	public Player(Deck deck) {
-		this.deck = deck;
+	public Player() {
+		deck = new Deck();
 		setup();
 	}
 
@@ -18,6 +19,9 @@ public class Player {
 		}
 	}
 
+	/**
+	 * draws and removes one card from the deck
+	 */
 	public int getCardFromDeck() {
 		return deck.draw();
 	}
@@ -49,13 +53,5 @@ public class Player {
 
 	public boolean finished() {
 		return deck.size() == 0;
-	}
-
-	public int getColor() {
-		return color;
-	}
-
-	public void setColor(int color) {
-		this.color = color;
 	}
 }

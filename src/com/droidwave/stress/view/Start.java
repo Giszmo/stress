@@ -14,10 +14,10 @@ import android.view.Display;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 
-import com.droidwave.stress.Configuration;
-import com.droidwave.stress.HighScore;
 import com.droidwave.stress.R;
-import com.droidwave.stress.SoundSystem;
+import com.droidwave.stress.entity.Configuration;
+import com.droidwave.stress.entity.HighScore;
+import com.droidwave.stress.entity.SoundSystem;
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
 

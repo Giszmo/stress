@@ -1,4 +1,4 @@
-package com.droidwave.stress;
+package com.droidwave.stress.entity;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

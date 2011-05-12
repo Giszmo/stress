@@ -1,4 +1,4 @@
-package com.droidwave.stress;
+package com.droidwave.stress.entity;
 
 import java.util.HashMap;
 import java.util.Map;
