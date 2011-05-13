@@ -1,0 +1,15 @@
+syntax: glob
+
+doc/*.aux
+doc/*.pdf
+doc/*.backup
+doc/*.toc
+doc/*.log
+assets/gfx/cards/color*
+
+.settings/*
+bin/*
+gen/*
+
+*~
+
