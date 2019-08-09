@@ -1,5 +1,0 @@
-Stress (Kartenspiel)
-
-Sehr einfache und frühe Stress Version. Jeder der 2 Spieler kann seine Karten in der Mitte ablegen, wenn sie 1 grösser oder 1 kleiner sind als eine der mittleren Karten. Die 1 kann auf die 13 gelegt werden und umgekehrt. Wer seinen Kartenstapel als erster abgespielt hat, hat gewonnen.
-
-Einzelspieler und Zwei-spieler.

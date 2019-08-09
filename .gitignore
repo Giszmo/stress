@@ -1,0 +1,15 @@
+local.properties
+tmp
+build.properties
+classes
+build/
+bin/
+gen/
+out/
+.gradle
+*.iml
+.idea/
+.settings
+nohup.out
+/gradle.properties
+

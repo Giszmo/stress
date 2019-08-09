@@ -6,19 +6,19 @@ public class Player {
 	private int cardsPlayed;
 	private int color;
 
-	public Player(Deck deck) {
+	Player(Deck deck) {
 		this.deck = deck;
 		setup();
 	}
 
-	public void setup() {
+	private void setup() {
 		cardsPlayed = 0;
 		for (int openCard = 0; openCard < 4; openCard++) {
 			loadOpenCard(openCard);
 		}
 	}
 
-	public int getCardFromDeck() {
+	int getCardFromDeck() {
 		return deck.draw();
 	}
 
@@ -30,11 +30,11 @@ public class Player {
 		}
 	}
 
-	public int getOpenCard(int openCardSlot) {
+	int getOpenCard(int openCardSlot) {
 		return openCards[openCardSlot];
 	}
 
-	public void playOpenCard(int openCardSlot) {
+	void playOpenCard(int openCardSlot) {
 		loadOpenCard(openCardSlot);
 		cardsPlayed++;
 	}
@@ -43,19 +43,19 @@ public class Player {
 		return cardsPlayed;
 	}
 
-	public int remainingCards() {
+	int remainingCards() {
 		return deck.size();
 	}
 
-	public boolean finished() {
+	boolean finished() {
 		return deck.size() == 0;
 	}
 
-	public int getColor() {
+	int getColor() {
 		return color;
 	}
 
-	public void setColor(int color) {
+	void setColor(int color) {
 		this.color = color;
 	}
 }

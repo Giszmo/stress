@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import android.widget.ProgressBar;
 
 public class StackSizeIndicator extends ProgressBar {
-
 	private float remaining;
 
 	public StackSizeIndicator(Context context) {

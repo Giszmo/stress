@@ -2,12 +2,12 @@ package com.droidwave.stress;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,13 +18,16 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.droidwave.stress.view.MirrorButton;
 import com.droidwave.stress.view.StackSizeIndicator;
 
-public class Stress extends Activity {
+public class Stress extends AppCompatActivity {
 	private static final int DECK_SUITE_COUNT = 4;
 	private static final int DECK_SIZE = 13;
 	private static final int CARDS_IN_DECK = DECK_SUITE_COUNT * DECK_SIZE;
+	private Timer timer;
 	private Player[] player = new Player[2];
 	private Deck[] centerDeck = new Deck[2];
 	// buttonIds[player][card]
@@ -37,68 +40,48 @@ public class Stress extends Activity {
 	private int[] currentValue = new int[2];
 	private GameMode gameMode = GameMode.SINGLEPLAYER;
 	private KILevel kiLevel = KILevel.EASY;
-	private static final Map<KILevel, Long> kiDelay = new HashMap<KILevel, Long>();
+	private static final Map<KILevel, Long> kiDelay = new HashMap<>();
 	static {
-		kiDelay.put(KILevel.EASY, 2000l);
-		kiDelay.put(KILevel.MEDIUM, 1500l);
-		kiDelay.put(KILevel.HARD, 500l);
+		kiDelay.put(KILevel.EASY, 2000L);
+		kiDelay.put(KILevel.MEDIUM, 1500L);
+		kiDelay.put(KILevel.HARD, 500L);
 	}
-	private Handler mHandler = new Handler();
-	private Runnable mUpdateTimerTask = new Runnable() {
-		public void run() {
-			long millis = SystemClock.uptimeMillis();
-			doKiStep();
-			// prevent it from blocking the main thread
-			int factor = 1;
-			long delay = kiDelay.get(kiLevel) * factor
-					- (SystemClock.uptimeMillis() - millis);
-			while (delay < 0) {
-				factor++;
-				delay = kiDelay.get(kiLevel) * factor
-						- (SystemClock.uptimeMillis() - millis);
-			}
-			mHandler.postDelayed(mUpdateTimerTask, delay);
-		}
-	};
 
 	@Override
 	public void onResume() {
-		doKiStep();
-		mHandler.removeCallbacks(mUpdateTimerTask);
-		mHandler.postDelayed(mUpdateTimerTask, kiDelay.get(kiLevel));
+		startKI();
 		super.onResume();
-		// if (sensorManager != null) {
-		// Sensor orientation =
-		// sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-		// if (orientation != null) {
-		// sensorManager.registerListener(this,
-		// orientation,
-		// SensorManager.SENSOR_DELAY_GAME,
-		// null);
-		// }
-		// }
 	}
 
 	private void doKiStep() {
 		int playerPick;
 		if (gameMode == GameMode.DEMO) {
-			playerPick = (int) (Math.random() * 2);
+			playerPick = new Random().nextInt(2);
 		} else {
 			playerPick = 1;
 		}
-		int cardPick = (int) (Math.random() * 4);
+		int cardPick = new Random().nextInt(4);
 		playCard(playerPick, cardPick);
 	}
 
 	private void startKI() {
-		doKiStep();
-		mHandler.removeCallbacks(mUpdateTimerTask);
-		mHandler.postDelayed(mUpdateTimerTask, kiDelay.get(kiLevel));
+		timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				Stress.this.runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						doKiStep();
+					}
+				});
+			}
+		}, kiDelay.get(kiLevel), kiDelay.get(kiLevel));
 	}
 
 	@Override
 	public void onPause() {
-		mHandler.removeCallbacks(mUpdateTimerTask);
+		stopKI();
 		super.onPause();
 	}
 
@@ -113,7 +96,7 @@ public class Stress extends Activity {
 	private void addClickListener() {
 		for (int[] playerButtonIds : buttonIds) {
 			for (int buttonId : playerButtonIds) {
-				Button button = (Button) findViewById(buttonId);
+				Button button = findViewById(buttonId);
 				button.setOnClickListener(clickListener);
 			}
 		}
@@ -138,7 +121,7 @@ public class Stress extends Activity {
 		for (int p = 0; p < 2; p++) {
 			int openCardId = 0;
 			for (int buttonId : buttonIds[p]) {
-				playerButton = (MirrorButton) findViewById(buttonId);
+				playerButton = findViewById(buttonId);
 				playerButton.setText("" + player[p].getOpenCard(openCardId++));
 				playerButton.setNotifyColor(player[p].getColor());
 			}
@@ -150,16 +133,20 @@ public class Stress extends Activity {
 	}
 
 	private void stopKI() {
-		mHandler.removeCallbacks(mUpdateTimerTask);
+		if (timer == null) {
+			return;
+		}
+		timer.cancel();
+		timer = null;
 	}
 
 	private void setCenterStack(int stack, int card, int playerNumber) {
 		MirrorButton stackToUpdate = null;
 		if (stack == 0) {
-			stackToUpdate = (MirrorButton) findViewById(R.id.ButtonStack1);
+			stackToUpdate = findViewById(R.id.ButtonStack1);
 			currentValue[0] = card;
 		} else {
-			stackToUpdate = (MirrorButton) findViewById(R.id.ButtonStack2);
+			stackToUpdate = findViewById(R.id.ButtonStack2);
 			currentValue[1] = card;
 		}
 		centerDeck[stack].add(card);
@@ -183,9 +170,9 @@ public class Stress extends Activity {
 	private void updateInfo(int playerNumber) {
 		StackSizeIndicator info = null;
 		if (playerNumber == 0) {
-			info = (StackSizeIndicator) findViewById(R.id.Info1);
+			info = findViewById(R.id.Info1);
 		} else {
-			info = (StackSizeIndicator) findViewById(R.id.Info2);
+			info = findViewById(R.id.Info2);
 		}
 		int remaining = player[playerNumber].remainingCards();
 		info.setRemaining((float) remaining / (CARDS_IN_DECK - 4));
@@ -223,7 +210,7 @@ public class Stress extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the currently selected menu XML resource.
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.layout.menu, menu);
+		inflater.inflate(R.menu.menu, menu);
 		Log.d("menu", "menu initialized");
 		return true;
 	}
@@ -292,48 +279,13 @@ public class Stress extends Activity {
 		if (playedACard) {
 			player[playerNumber].playOpenCard(cardNumber);
 			int newCard = player[playerNumber].getOpenCard(cardNumber);
-			Button button = (Button) findViewById(buttonIds[playerNumber][cardNumber]);
+			Button button = findViewById(buttonIds[playerNumber][cardNumber]);
 			button.setText("" + newCard);
 			ensurePlayability();
 			updateInfo(playerNumber);
 			if (player[playerNumber].finished()) {
 				playerWon();
 			}
-		}
-	}
-
-	public boolean onTrackballEvent(MotionEvent event) {
-		int N = event.getHistorySize();
-		for (int i = 0; i < N; i++) {
-			int buttonId = getButtonIdByDirection(event.getHistoricalX(i),
-					event.getHistoricalY(i));
-			if (buttonId >= 0) {
-				playCard(0, buttonId);
-				Log.i("trackball", "X=" + event.getHistoricalX(i) + "\nY="
-						+ event.getHistoricalY(i) + "\npressure="
-						+ event.getHistoricalPressure(i) + "\nsize="
-						+ event.getHistoricalSize(i));
-			}
-		}
-		event.setAction(MotionEvent.ACTION_CANCEL);
-		return true;
-	}
-
-	private int getButtonIdByDirection(float x, float y) {
-		if (Math.abs(x) > Math.abs(y)) {
-			if (x > 0) {
-				return 3;
-			} else {
-				return 0;
-			}
-		} else if (Math.abs(y) > Math.abs(x)) {
-			if (y > 0) {
-				return 1;
-			} else {
-				return 2;
-			}
-		} else {
-			return -1;
 		}
 	}
 
@@ -367,4 +319,8 @@ public class Stress extends Activity {
 			throw new Error("Unknown Button pressed");
 		}
 	};
+
+	public void openOptions(View view) {
+		openOptionsMenu();
+	}
 }

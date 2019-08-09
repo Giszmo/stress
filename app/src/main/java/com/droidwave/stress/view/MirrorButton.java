@@ -4,9 +4,10 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.widget.Button;
 
-public class MirrorButton extends Button {
+import androidx.appcompat.widget.AppCompatButton;
+
+public class MirrorButton extends AppCompatButton {
 	private float easing = 0;
 	private int notifyColor;
 
@@ -25,13 +26,14 @@ public class MirrorButton extends Button {
 		canvas.save();
 		// draw it rotated
 		float centerX = this.getWidth() / 2.0f;
-		float centerY = this.getHeight() / 1.8f;
+		float centerY = this.getHeight() / 1.65f;
 		canvas.rotate(180, centerX, centerY);
 		super.onDraw(canvas);
 		// restore the old matrix.
 		canvas.restore();
+		canvas.save();
 		// draw translated
-		canvas.translate(0, -5f);
+		canvas.translate(0, -25f);
 		super.onDraw(canvas);
 		// restore the old matrix again
 		canvas.restore();

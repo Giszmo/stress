@@ -3,13 +3,13 @@ package com.droidwave.stress;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Deck {
-
 	private List<Integer> cards;
 
-	public Deck(int suitSize, int suitCount) {
-		cards = new ArrayList<Integer>();
+	Deck(int suitSize, int suitCount) {
+		cards = new ArrayList<>();
 		init(suitSize, suitCount);
 	}
 
@@ -22,15 +22,15 @@ public class Deck {
 		Collections.shuffle(cards);
 	}
 
-	public int draw() {
-		if (cards.size() <= 0) {
+	int draw() {
+		if (cards.isEmpty()) {
 			return 0;
 		}
-		int cardIndex = (int) Math.random() * cards.size();
+		int cardIndex = new Random().nextInt(cards.size());
 		return cards.remove(cardIndex);
 	}
 
-	public int size() {
+	int size() {
 		return cards.size();
 	}
 
@@ -39,8 +39,7 @@ public class Deck {
 		Collections.shuffle(cards);
 	}
 
-	public void add(int card) {
+	void add(int card) {
 		cards.add(card);
 	}
-
 }

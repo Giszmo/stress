@@ -1,0 +1,68 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .gradle/
+* .gradle/5.1.1/
+* .gradle/5.1.1/fileChanges/
+* .gradle/5.1.1/fileChanges/last-build.bin
+* .gradle/5.1.1/fileHashes/
+* .gradle/5.1.1/fileHashes/fileHashes.lock
+* .gradle/5.1.1/gc.properties
+* .gradle/buildOutputCleanup/
+* .gradle/buildOutputCleanup/buildOutputCleanup.lock
+* .gradle/buildOutputCleanup/cache.properties
+* .gradle/vcs-1/
+* .gradle/vcs-1/gc.properties
+* .idea/
+* .idea/encodings.xml
+* .idea/kotlinc.xml
+* .idea/libraries/
+* .idea/libraries/KotlinJavaRuntime.xml
+* .idea/misc.xml
+* .idea/modules.xml
+* .idea/sbt.xml
+* .idea/stress.iml
+* .idea/vcs.xml
+* .idea/workspace.xml
+* default.properties
+* res-sources/
+* res-sources/android-market/
+* res-sources/android-market/apptext-de.txt
+* res-sources/android-market/apptext-en.txt
+* res-sources/android-market/keystore
+* res-sources/android-market/stress.jpg
+* res-sources/android-market/stress2.jpg
+* res-sources/changelog.txt
+* res-sources/icon.svg
+* res-sources/svg2png.sh
+* res-sources/uhdpi_icon.png
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app/src/main/AndroidManifest.xml
+* res/ => app/src/main/res/
+* src/ => app/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
