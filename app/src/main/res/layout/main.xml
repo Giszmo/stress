@@ -75,7 +75,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:width="100dip"
-            android:onClick="openOptions"
             android:textStyle="bold"
             tools:text="9" />
 
@@ -86,7 +85,6 @@
             android:layout_weight="1"
             android:width="100dip"
             android:textStyle="bold"
-            android:onClick="openOptions"
             tools:text="10" />
     </TableRow>
 
