@@ -13,7 +13,7 @@
     <string name="hard">schwer</string>
     <string name="info">Info</string>
     <string name="ai">KI</string>
-    <string name="ai_set_to">KI:</string>
-    <string name="player_n_wins">Spieler %n1% hat gewonnen</string>
+    <string name="ai_set_to">KI: %1$s</string>
+    <string name="player_n_wins">Spieler %1$d hat gewonnen</string>
     <string name="game_is_a_draw">Unentschieden</string>
 </resources>

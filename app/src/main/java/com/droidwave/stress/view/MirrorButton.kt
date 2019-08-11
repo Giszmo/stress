@@ -11,9 +11,9 @@ class MirrorButton : AppCompatButton {
     private var easing = 0f
     var notifyColor: Int = 0
 
-    constructor(context: Context) : super(context) {}
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     public override fun onDraw(canvas: Canvas) {
         easingEffect()
@@ -44,9 +44,8 @@ class MirrorButton : AppCompatButton {
         setTextColor(color)
     }
 
-    private fun easing(target: Int, source: Int, easingFactor: Float): Int {
-        return ((1 - easingFactor) * target + easingFactor * source).toInt()
-    }
+    private fun easing(target: Int, source: Int, easingFactor: Float): Int =
+            ((1 - easingFactor) * target + easingFactor * source).toInt()
 
     override fun onTextChanged(text: CharSequence, start: Int, before: Int, after: Int) {
         super.onTextChanged(text, start, before, after)

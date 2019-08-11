@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/new_singleplayer"
-        android:title="@string/new_singleplayer" />
-    <item android:id="@+id/new_multiplayer"
-        android:title="@string/new_multiplayer" />
-    <item android:id="@+id/submenu"
-        android:title="@string/ai">
-        <menu>        
-            <item android:id="@+id/easyy"
-                android:title="@string/easy"/>
-            <item android:id="@+id/medium"
-                android:title="@string/medium"/>
-            <item android:id="@+id/hard"
-                android:title="@string/hard"/>
-        </menu>
-    </item>
-    <item android:id="@+id/new_demo"
+    <item
+        android:id="@+id/new_demo"
         android:title="@string/new_demo" />
-    <item android:id="@+id/help"
-        android:title="@string/helpHeader">
-        <item android:id="@+id/info"
-        android:title="@string/info"/>
+    <item
+        android:id="@+id/new_singleplayer"
+        android:title="@string/new_singleplayer" />
+    <item
+        android:id="@+id/new_multiplayer"
+        android:title="@string/new_multiplayer" />
+    <item
+        android:id="@+id/submenu"
+        android:title="@string/ai">
+        <menu>
+            <item
+                android:id="@+id/easyy"
+                android:title="@string/easy" />
+            <item
+                android:id="@+id/medium"
+                android:title="@string/medium" />
+            <item
+                android:id="@+id/hard"
+                android:title="@string/hard" />
+        </menu>
     </item>
 </menu>

@@ -10,9 +10,8 @@ class Player(private val deck: Deck) {
         get() = deck.draw()
 
     init {
-        cardsPlayed = 0
-        for (openCard in 0..3) {
-            loadOpenCard(openCard)
+        for (cardIndex in 0..3) {
+            loadOpenCard(cardIndex)
         }
     }
 
@@ -24,20 +23,14 @@ class Player(private val deck: Deck) {
         }
     }
 
-    internal fun getOpenCard(openCardSlot: Int): Int {
-        return openCards[openCardSlot]
-    }
+    internal fun getOpenCard(openCardSlot: Int) = openCards[openCardSlot]
 
     internal fun playOpenCard(openCardSlot: Int) {
         loadOpenCard(openCardSlot)
         cardsPlayed++
     }
 
-    internal fun remainingCards(): Int {
-        return deck.size()
-    }
+    internal fun remainingCards() = deck.size()
 
-    internal fun finished(): Boolean {
-        return deck.size() == 0
-    }
+    internal fun finished() = deck.size() == 0
 }

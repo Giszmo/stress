@@ -8,9 +8,9 @@ import android.widget.ProgressBar
 class StackSizeIndicator : ProgressBar {
     private var remaining: Float = 0.toFloat()
 
-    constructor(context: Context) : super(context) {}
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     public override fun onDraw(canvas: Canvas) {
         val centerX = width / 2.0f
@@ -23,5 +23,6 @@ class StackSizeIndicator : ProgressBar {
 
     fun setRemaining(remaining: Float) {
         this.remaining = remaining
+        invalidate()
     }
 }

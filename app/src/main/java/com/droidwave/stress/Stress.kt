@@ -1,17 +1,13 @@
 package com.droidwave.stress
 
-import java.util.HashMap
 import java.util.Random
 import java.util.Timer
 import java.util.TimerTask
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnClickListener
 import android.widget.Button
@@ -37,11 +33,11 @@ class Stress : AppCompatActivity() {
         override fun onClick(v: View) {
             val button = v as Button
             val playerNumber = getPlayerByButton(button)
-            val cardNumber = getPlayedCardNumber(button, player[playerNumber])
+            val cardNumber = getPlayedCardNumber(button)
             playCard(playerNumber, cardNumber)
         }
 
-        private fun getPlayedCardNumber(button: Button, player: Player): Int {
+        private fun getPlayedCardNumber(button: Button): Int {
             for (p in 0..1) {
                 for (c in 0..3) {
                     if (buttonIds[p][c] == button.id) {
@@ -67,26 +63,6 @@ class Stress : AppCompatActivity() {
     public override fun onResume() {
         startKI()
         super.onResume()
-    }
-
-    private fun doKiStep() {
-        val playerPick: Int
-        if (gameMode == GameMode.DEMO) {
-            playerPick = Random().nextInt(2)
-        } else {
-            playerPick = 1
-        }
-        val cardPick = Random().nextInt(4)
-        playCard(playerPick, cardPick)
-    }
-
-    private fun startKI() {
-        timer = Timer()
-        timer!!.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                this@Stress.runOnUiThread { doKiStep() }
-            }
-        }, kiLevel.timePerCheck, kiLevel.timePerCheck)
     }
 
     public override fun onPause() {
@@ -128,36 +104,55 @@ class Stress : AppCompatActivity() {
         for (p in 0..1) {
             var openCardId = 0
             for (buttonId in buttonIds[p]) {
-                playerButton = findViewById(buttonId)
-                playerButton!!.text = "" + player[p].getOpenCard(openCardId++)
+                playerButton = findViewById(buttonId)!!
+                playerButton.text = "" + player[p].getOpenCard(openCardId++)
                 playerButton.notifyColor = player[p].color
             }
         }
         ensurePlayability()
-        if (gameMode != GameMode.MULTIPLAYER) {
-            startKI()
+        startKI()
+    }
+
+    private fun doKiStep() {
+        val playerPick: Int = if (gameMode == GameMode.DEMO) {
+            Random().nextInt(2)
+        } else {
+            1
+        }
+        val cardPick = Random().nextInt(4)
+        playCard(playerPick, cardPick)
+    }
+
+    private fun startKI() {
+        stopKI() // clean up current timer
+        if (gameMode == GameMode.MULTIPLAYER) {
+            return
+        }
+        timer = Timer().also {
+            it.scheduleAtFixedRate(object : TimerTask() {
+                override fun run() {
+                    this@Stress.runOnUiThread { doKiStep() }
+                }
+            }, kiLevel.timePerCheck, kiLevel.timePerCheck)
         }
     }
 
     private fun stopKI() {
-        if (timer == null) {
-            return
-        }
-        timer!!.cancel()
+        timer?.cancel()
+        timer?.purge()
         timer = null
     }
 
     private fun setCenterStack(stack: Int, card: Int, playerNumber: Int) {
-        val stackToUpdate: MirrorButton?
-        if (stack == 0) {
-            stackToUpdate = findViewById(R.id.ButtonStack1)
+        val stackToUpdate: MirrorButton = findViewById(if (stack == 0) {
             currentValue[0] = card
+            R.id.ButtonStack1
         } else {
-            stackToUpdate = findViewById(R.id.ButtonStack2)
             currentValue[1] = card
-        }
+            R.id.ButtonStack2
+        })
         centerDeck[stack]!!.add(card)
-        stackToUpdate!!.notifyColor = player[playerNumber].color
+        stackToUpdate.notifyColor = player[playerNumber].color
         stackToUpdate.text = "" + card
     }
 
@@ -165,42 +160,38 @@ class Stress : AppCompatActivity() {
         if (player[0].finished() && player[1].finished()) {
             toast(R.string.game_is_a_draw)
         } else if (player[0].finished()) {
-            toast(getText(R.string.player_n_wins).toString().replaceFirst("%n1%".toRegex(), "1"))
+            toast(getString(R.string.player_n_wins, 1))
         } else if (player[1].finished()) {
-            toast(getText(R.string.player_n_wins).toString().replaceFirst("%n1%".toRegex(), "2"))
+            toast(getString(R.string.player_n_wins,2))
         }
         initGame()
     }
 
     private fun updateInfo(playerNumber: Int) {
-        var info: StackSizeIndicator? = null
-        if (playerNumber == 0) {
-            info = findViewById(R.id.Info1)
+        val info: StackSizeIndicator = findViewById(if (playerNumber == 0) {
+            R.id.Info1
         } else {
-            info = findViewById(R.id.Info2)
-        }
+            R.id.Info2
+        })
         val remaining = player[playerNumber].remainingCards()
-        info!!.setRemaining(remaining.toFloat() / (Deck.CARDS_IN_DECK - 4))
+        info.setRemaining(remaining.toFloat() / (Deck.CARDS_IN_DECK - 4))
     }
 
     private fun ensurePlayability() {
-        var playable = false
         for (playerNumber in 0..1) {
             for (cardNumber in 0..3) {
                 for (currentValueNumber in 0..1) {
                     if (Math.abs(currentValue[currentValueNumber] - player[playerNumber].getOpenCard(cardNumber)) % 11 == 1) {
-                        playable = true
+                        return
                     }
                 }
             }
         }
-        if (!playable) {
-            drawNewCenterCards()
-            if (player[0].finished() || player[1].finished()) {
-                playerWon()
-            } else {
-                ensurePlayability()
-            }
+        drawNewCenterCards()
+        if (player[0].finished() || player[1].finished()) {
+            playerWon()
+        } else {
+            ensurePlayability()
         }
     }
 
@@ -212,10 +203,8 @@ class Stress : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the currently selected menu XML resource.
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
-        Log.d("menu", "menu initialized")
         return true
     }
 
@@ -237,16 +226,16 @@ class Stress : AppCompatActivity() {
                 initGame()
             }
             R.id.easyy -> {
-                toast(getText(R.string.ai_set_to).toString() + " " + getText(R.string.easy))
                 kiLevel = KILevel.EASY
+                toast(getString(R.string.ai_set_to, getString(kiLevel.nameResId)))
             }
             R.id.medium -> {
-                toast(getText(R.string.ai_set_to).toString() + " " + getText(R.string.medium))
                 kiLevel = KILevel.MEDIUM
+                toast(getString(R.string.ai_set_to, getString(kiLevel.nameResId)))
             }
             R.id.hard -> {
-                toast(getText(R.string.ai_set_to).toString() + " " + getText(R.string.hard))
                 kiLevel = KILevel.HARD
+                toast(getString(R.string.ai_set_to, getString(kiLevel.nameResId)))
             }
             R.id.submenu, R.id.info -> {
             }

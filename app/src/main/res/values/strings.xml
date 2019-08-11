@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Stress</string>
-    <string name="new_multiplayer">multi player</string>
-    <string name="new_multiplayer_started">new multi player game started</string>
-    <string name="new_singleplayer">single player</string>
-    <string name="new_singleplayer_started">new single player game started</string>
-    <string name="new_demo">demo</string>
-    <string name="new_demo_started">new demo started</string>
-    <string name="helpHeader">help</string>
-    <string name="easy">easy</string>
-    <string name="medium">medium</string>
-    <string name="hard">hard</string>
-    <string name="info">info</string>
+    <string name="new_multiplayer">Multi Player</string>
+    <string name="new_multiplayer_started">New multi player game started</string>
+    <string name="new_singleplayer">Single Player</string>
+    <string name="new_singleplayer_started">New single player game started</string>
+    <string name="new_demo">Demo</string>
+    <string name="new_demo_started">New demo started</string>
+    <string name="helpHeader">Help</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="info">Info</string>
     <string name="ai">AI</string>
-    <string name="ai_set_to">ai set to:</string>
-    <string name="player_n_wins">player %n1% wins</string>
-    <string name="game_is_a_draw">this game was a draw</string>
+    <string name="ai_set_to">AI set to %1$s</string>
+    <string name="player_n_wins">Player %1$d wins</string>
+    <string name="game_is_a_draw">This game was a draw</string>
 </resources>
